@@ -25,6 +25,7 @@ Auf dem Handelsplatz werden Waren in Form von noch nocht näher bekannten Objekt
     - [ ] Waren : Eine Liste welche alle aktuellen Objekte auf dem Marktplatz enthält
 - [ ] Memberfunktionen:
     - [ ] Einloggen : Damit loggt sich ein Benutzer auf den Handelsplatz ein. Beim ersten Log-In des Serverdurchlauf soll der Benutzer sein eigenes Passwort wählen können
+    - [ ] ListeAnpassen : Passt die Liste der Objekte an wenn ein Objekt verkauft bzw. gekauft wurde
 
 
 ## Objekt Klasse
@@ -48,3 +49,4 @@ Die Nutzer bilden die Personen welche auf dem Handelsplatz Objekte verkaufen bzw
     - [ ] Einkaufen : Funtion um ein Objekt zu kaufen und sein Geldvermögen entsprechend zu senken
     - [ ] Verkaufen : Funktion um ein Objekt zu verkaufen und sein Geldvermögen entsprechend zu erhöhen
     - [ ] Warenüberblick : Dient dazu um einen Überblick über die Objekte in seinem Inventar und ihren aktuellen Wert im Gegensatz zu dem entsprechenden Einkaufswert zu erhalten
+    - [ ] get_Geld : Gibt das Geld des Nutzers zurueck
