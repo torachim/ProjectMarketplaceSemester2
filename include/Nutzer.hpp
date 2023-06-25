@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
-#include<list>
+#include <list>
+#include <string>
 #include "Handelsplatz.hpp"
 #include "Objekt.hpp"
 #include "NutzerInterface.hpp"

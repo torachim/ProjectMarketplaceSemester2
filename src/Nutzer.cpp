@@ -1,5 +1,6 @@
 #include <iostream>
-#include<list>
+#include <list>
+#include <string>
 #include "../include/Nutzer.hpp"
 #include "../include/Handelsplatz.hpp"
 #include "../include/Objekt.hpp"
@@ -8,6 +9,17 @@ using namespace std;
 
 namespace ProjectGamma{
 
+
+        Nutzer::Nutzer(const std::string& Name, int Passwort)
+        {
+         const std::string& myName= Name;
+         int Passwort= Passwort
+        }
+
+        int Nutzer::getPasswort()
+        {
+            return Passwort;
+        }
 
         void Nutzer::kaufen(const std::string& Objekt) 
         {   

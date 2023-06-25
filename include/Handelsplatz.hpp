@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
-#include<list>
+#include <list>
+#include <string>
 #include "HandelsplatzInterface.hpp"
 #include "Objekt.hpp"
-
-
+#include "Nutzer.hpp"
 
 
 using namespace std;
@@ -15,7 +15,7 @@ class Handelsplatz : public HandelsplatzInterface {
 
     private:
         std::list<string> Markt;
-        std::list>string> Nutzer;
+        std::list<string> MarktNutzer;
 
     public:
 

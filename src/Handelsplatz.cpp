@@ -1,14 +1,52 @@
 #include <iostream>
-#include<list>
+#include <list>
+#include <string>
 #include "../include/Handelsplatz.hpp"
 #include "../include/Objekt.hpp"
+#include "../include/Nutzer.hpp"
 
 using namespace std; 
 
 namespace ProjectGamma{
 
-        //einloggen Funktion
-        //Nutzer erstellen Funktion
+        void Handelsplatz:: createNutzer(string Name,int Passwort)
+        {
+            for (const auto& Nutzer : MarktNutzer) {
+            if (nameVergeben(Name)== false) 
+            {
+                cout<<"Schon Vergeben. Wähle einen anderen Namen"<<endl;
+                createNutzer(string Name);
+            }
+            else
+            {
+                Nutzer(Name,Passwort);
+                Markt.add(Name);
+            }
+            }
+        }
+
+        bool einlogen(string Name, int Passwort)
+        {
+            int passwort= Nutzer.getPasswort();
+            If(passwort==Passwort){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        bool Handelsplatz::nameVergeben ( string Name)
+        {
+           for (const auto& Nutzer : MarktNutzer) 
+           {
+                if (Nutzer == Name) 
+                {
+                return false;
+                } 
+            }
+        }
 
         void Handelspaltz::showMarket() 
         {

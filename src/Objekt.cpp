@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "../include/Objekt.hpp"
 
 using namespace std; 
