@@ -66,7 +66,7 @@ namespace ProjectGamma{
                             cin >> Passwort;
                             if(Information.at(Benutzername) == Passwort){
                                 cout << "Einloggen erfolgreich" << endl;
-                                Nutzer k = Nutzer(Benutzername,Passwort);
+                                Nutzer k = Nutzer(Benutzername);
                                 MarktNutzer.push_front(k);
                                 t = true;
                             }
