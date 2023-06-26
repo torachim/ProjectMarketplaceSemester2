@@ -24,7 +24,7 @@ namespace ProjectGamma{
         void Nutzer::kaufen(const std::string& Objekt) 
         {   
             string Produkt = Objekt.getProdukt();
-            a = available(Produkt)
+            bool a = available(Produkt);
             if ( a == true)
             {
     
@@ -55,10 +55,12 @@ namespace ProjectGamma{
             //cout<< "Willst du" <<Produkt  << "weiterverkaufen? (1 für Ja oder 0 für Nein): "<<endl; // Bei Phyton erst nach Abfrage diese Funktion aufrufen
             //cin>> Antwort;
 
-            if( Antwort== 0){
+            if( Antwort== 0)
+            {
                 Markt.remove(Produkt);  // Produkt für Eigenbedarf wird vom Markt gelöscht
             }
-            else{
+            else
+            {
             Produkt.changeSeller(myName); // Produkt wird vom Nutzer weiterverkauft
             }
         }

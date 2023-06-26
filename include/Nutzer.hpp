@@ -19,6 +19,8 @@ namespace ProjectGamma{
 
         public:
 
+            Nutzer(const std::string& Name, int Passwort);
+            int getPasswort();
             void kaufen(const std::string& Objekt);
             void verkaufen(string Produkt,bool ja);
             void verkauft(string Produkt, double Preis);

@@ -19,8 +19,8 @@ namespace ProjectGamma{
             }
             else
             {
-                Nutzer(Name,Passwort);
-                Markt.insert(Name);
+                //Nutzer(Name,Passwort);
+                MarktNutzer.push_back(Name);
             }
             }
 
@@ -52,7 +52,7 @@ namespace ProjectGamma{
             cout << "Marktangebot:" << endl;
             for (const auto& Objekte : Markt) 
             {
-                cout << Objekt.getProdukt() << " - Preis: " << Objekt.getPreis() << endl;
+                cout << Objekte.getProdukt() << " - Preis: " << Objekte.getPreis() << endl;
             }
         }
 

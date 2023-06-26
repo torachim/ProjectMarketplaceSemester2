@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <map>
 #include <vector>
 #include "HandelsplatzInterface.hpp"
 
@@ -28,6 +29,7 @@ class Handelsplatz : public HandelsplatzInterface {
     private:
         std::list<string> Markt;
         std::list<string> MarktNutzer;
+        std::map<string, string> Passwort;
 
 
    };
