@@ -1,10 +1,11 @@
 #pragma once 
 #include <iostream>
+#include <list>
 
 using namespace std;
 namespace ProjectGamma {
 
-    class Nutzerinterface{
+    class NutzerInterface{
         public:
             
             virtual void kaufen(const std::string& Objekt=0);

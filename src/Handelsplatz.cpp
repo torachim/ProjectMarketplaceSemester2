@@ -9,25 +9,24 @@ using namespace std;
 
 namespace ProjectGamma{
 
-        void Handelsplatz:: createNutzer(string Name,int Passwort)
+        void Handelsplatz::createNutzer(string Name,int Passwort)
         {
-            for (const auto& Nutzer : MarktNutzer) {
-            if (nameVergeben(Name)== false) 
+
+            if (nameVergeben(Name) == false) 
             {
                 cout<<"Schon Vergeben. Wähle einen anderen Namen"<<endl;
-                createNutzer(string Name);
+                //createNutzer(string Name);
             }
             else
             {
                 Nutzer(Name,Passwort);
-                Markt.add(Name);
+                Markt.insert(Name);
             }
             }
-        }
 
-        bool einlogen(string Name, int Passwort)
+        bool Handelsplatz::einlogen(string Name, int Passwort)
         {
-            int passwort= Nutzer.getPasswort();
+            int passwort = Nutzer.getPasswort();
             If(passwort==Passwort){
                 return true;
             }
@@ -37,18 +36,18 @@ namespace ProjectGamma{
             }
         }
 
-        bool Handelsplatz::nameVergeben ( string Name)
+        bool Handelsplatz::nameVergeben (string Name)
         {
-           for (const auto& Nutzer : MarktNutzer) 
+           for (const string& n : MarktNutzer) 
            {
-                if (Nutzer == Name) 
+                if (n == Name) 
                 {
                 return false;
                 } 
             }
         }
 
-        void Handelspaltz::showMarket() 
+        void Handelsplatz::showMarket() 
         {
             cout << "Marktangebot:" << endl;
             for (const auto& Objekte : Markt) 
