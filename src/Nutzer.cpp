@@ -24,7 +24,7 @@ namespace ProjectGamma{
         void Nutzer::kaufen(const std::string& Objekt) 
         {   
             string Produkt = Objekt.getProdukt();
-            a = available(Produkt)
+            bool a = available(Produkt);
             if ( a == true)
             {
     

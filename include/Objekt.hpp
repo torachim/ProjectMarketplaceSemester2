@@ -19,6 +19,7 @@ namespace ProjectGamma{
 
         public:
 
+            Objekt(const std::string& produktName, double produktPreis,string produktSeller);
             std::string getProdukt() const;
             double getPreis();
             string getSeller();

@@ -9,7 +9,7 @@ using namespace std;
 
 namespace ProjectGamma{
 
-        void Handelsplatz:: createNutzer(string Name,int Passwort)
+        void Handelsplatz::createNutzer(string Name,int Passwort)
         {
             for (const auto& Nutzer : MarktNutzer) 
             {
@@ -38,7 +38,7 @@ namespace ProjectGamma{
             }
         }
 
-        bool Handelsplatz::nameVergeben ( string Name)
+        bool Handelsplatz::nameVergeben(string Name)
         {
            for (const auto& Nutzer : MarktNutzer) 
            {
@@ -49,12 +49,12 @@ namespace ProjectGamma{
             }
         }
 
-        void Handelspaltz::showMarket() 
+        void Handelsplatz::showMarket() 
         {
             cout << "Marktangebot:" << endl;
             for (const auto& Objekte : Markt) 
             {
-                cout << Objekt.getProdukt() << " - Preis: " << Objekt.getPreis() << endl;
+                cout << Objekte.getProdukt() << " - Preis: " << Objekte.getPreis() << endl;
             }
         }
 

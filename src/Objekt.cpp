@@ -30,7 +30,7 @@ namespace ProjectGamma{
 
     void Objekt::changeSeller(string Nutzer)
         {
-            Seller = Nutzer:
+            Seller = Nutzer;
         }
     
 }
