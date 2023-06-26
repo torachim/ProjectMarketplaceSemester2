@@ -12,6 +12,8 @@ namespace ProjectGamma{
             virtual void showUsers()= 0;
             virtual void addNutzer(string user)=0;
             virtual void addProdukt(string Produkt, double Preis)=0;
+            virtual void einloggen() = 0;
+            virtual bool findeBenutzer(string Benutzername) = 0;
     
     };
 }

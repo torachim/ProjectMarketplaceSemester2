@@ -93,9 +93,14 @@ namespace ProjectGamma{
             return myList;
         }
 
-        double getGuthaben()
+        double Nutzer::getGuthaben() const
         {
             return Guthaben;
+        }
+
+        string Nutzer::getName() const
+        {
+            return myName;
         }
 
         

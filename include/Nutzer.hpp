@@ -19,7 +19,7 @@ namespace ProjectGamma{
 
         public:
 
-            Nutzer(const std::string& Name, int Passwort);
+            Nutzer(const std::string& Name, string Passwort);
             int getPasswort();
             void kaufen(const std::string& Objekt);
             void verkaufen(string Produkt,bool ja);
@@ -27,6 +27,7 @@ namespace ProjectGamma{
             void pay(double Preis, string Seller);
             bool available ( string Produkt);
             std::list<string> getMyList();
-            double getGuthaben();
+            double getGuthaben() const;
+            string getName() const;
     };
 }

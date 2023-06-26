@@ -14,7 +14,8 @@ namespace ProjectGamma {
             virtual void pay(double Preis, string Seller)=0;
             virtual bool available ( string Produkt)=0;
             virtual std::list<string> getMyList()=0;
-            virtual double getGuthaben()=0;
+            virtual double getGuthaben() const =0;
+            virtual string getName() const = 0;
             
     };
 }
