@@ -11,7 +11,8 @@ namespace ProjectGamma{
 
         void Handelsplatz:: createNutzer(string Name,int Passwort)
         {
-            for (const auto& Nutzer : MarktNutzer) {
+            for (const auto& Nutzer : MarktNutzer) 
+            {
             if (nameVergeben(Name)== false) 
             {
                 cout<<"Schon Vergeben. Wähle einen anderen Namen"<<endl;
