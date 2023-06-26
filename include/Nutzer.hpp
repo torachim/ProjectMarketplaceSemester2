@@ -29,4 +29,5 @@ namespace ProjectGamma{
             std::list<string> getMyList();
             double getGuthaben();
     };
-}
+} snehpreet ist wunderschön love ya cringe wooooooh slay 
+imene ist todes hässlich ewwww 
