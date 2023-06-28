@@ -40,4 +40,4 @@ namespace ProjectGamma{
             void druckeObjekte() const;
             void Objekteaussortieren();
     };
-}
+};
