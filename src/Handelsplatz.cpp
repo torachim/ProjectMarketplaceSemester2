@@ -31,14 +31,14 @@ namespace ProjectGamma{
                     cout <<"Bitte Passwort wiederholen!" << endl;
                     cin >> Passwort2;
                     if(Passwort == Passwort2){
-                        Information.insert(Benutzername, Passwort);
+                        Information.insert(pair<string,string>(Benutzername, Passwort));
                         cout << "Account erfolgreich angelegt. Sie kehren zur Anmeldung zurueck!" << endl;
                         t = true;
                     }
                     else{
                         cout << "Passowert falsche! Bitte wiederholen" << endl;
                     }
-                Information.insert(Benutzername, Passwort);
+                Information.insert(pair<string,string> (Benutzername, Passwort));
                 einloggen();
                 }
             }
@@ -67,7 +67,8 @@ namespace ProjectGamma{
                             if(Information.at(Benutzername) == Passwort){
                                 cout << "Einloggen erfolgreich" << endl;
                                 Nutzer k = Nutzer(Benutzername);
-                                MarktNutzer.push_front(k);
+                                nu.n = k;
+                                MarktNutzer.push_front(nu);
                                 t = true;
                             }
                             else{
@@ -88,31 +89,39 @@ namespace ProjectGamma{
 
         bool Handelsplatz::nameVergeben (string Name)
         {
-           for (const Nutzer& n : MarktNutzer) 
+           for (auto it = MarktNutzer.begin(); it != MarktNutzer.end();) 
            {
-                if (n.getName() == Name) 
+                if (it -> n.getName() == Name) 
                 {
                 return false;
                 } 
+                else{
+                    ++it;
+                }
             }
+            return true;
         }
 
         void Handelsplatz::showMarket() 
         {
             cout << "Marktangebot:" << endl;
-            for (const Objekt& O : Markt) 
+            for (auto it = Markt.begin(); it != Markt.end();) 
             {
-                cout << O.getProdukt() << " - Preis: " << O.getPreis() << endl;
+                cout << it -> o.getProdukt() << " - Preis: " << it -> o.getPreis() << endl;
+                ++it;
             }
         }
 
         void Handelsplatz::showUsers() 
         {
             cout << "Nutzer auf dem Marktplatz:" << endl;
-            for (const Nutzer& user : MarktNutzer) {
-                cout << user.getName() << " - Kontostand: " << user.getGuthaben() << endl;
+            for (auto it = MarktNutzer.begin(); it != MarktNutzer.end();)
+            {
+                cout << "Nutzer: " << it -> n.getName() << endl;
+                ++it;
+                
             }
-        }
+        }    
 
         /*void Handelsplatz::addNutzer(string user) 
         {
@@ -122,7 +131,8 @@ namespace ProjectGamma{
         void Handelsplatz::addProdukt(string Produkt, double Preis) 
         {
             Objekt no = Objekt (Produkt, Preis, "Markt");
-            Markt.push_front(no);
+            mo.o = no;
+            Markt.push_front(mo);
         }
 
         bool Handelsplatz::findeBenutzer(string Benutzername)
@@ -131,10 +141,8 @@ namespace ProjectGamma{
                 if(key == Benutzername){
                     return true;
                 }
-                else{
-                    return false;
-                }
             }
+            return false;
         }
 
         

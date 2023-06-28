@@ -1,40 +1,41 @@
 #pragma once
+#include "HandelsplatzInterface.hpp"
+#include "Nutzer.hpp"
+#include "Objekt.hpp"
 #include <iostream>
 #include <list>
-#include <string>
 #include <map>
+#include <string>
 #include <vector>
-#include "HandelsplatzInterface.hpp"
-#include "Objekt.hpp"
-#include "Nutzer.hpp"
-
-
 
 using namespace std;
 
-namespace ProjectGamma{
+namespace ProjectGamma {
 
 class Handelsplatz : public HandelsplatzInterface {
 
+public:
+  void login();
+  void einloggen();
+  void showMarket();
+  void showUsers();
+  void addNutzer(string user);
+  void addProdukt(string Produkt, double Preis);
+  // void createNutzer(string Name, int Passwort);
+  bool nameVergeben(string Name);
+  bool findeBenutzer(string Benutzername);
 
-
-    public:
-
-        void login();
-        void einloggen();
-        void showMarket();
-        void showUsers();
-        void addNutzer(string user);
-        void addProdukt(string Produkt, double Preis);
-        //void createNutzer(string Name, int Passwort);
-        bool nameVergeben(string Name);
-        bool findeBenutzer(string Benutzername);
-
-    private:
-        std::list<Objekt> Markt;
-        std::list<Nutzer> MarktNutzer;
-        std::map<string, string> Information;
-
-
-   };
-}
+private:
+  struct nutzerobjekt {
+    Nutzer n = Nutzer("NULL");
+  };
+  nutzerobjekt nu;
+  struct marktobjekte {
+    Objekt o = Objekt("NULL", 0, "NULL");
+  };
+  marktobjekte mo;
+  std::list<marktobjekte> Markt;
+  std::list<nutzerobjekt> MarktNutzer;
+  std::map<string, string> Information;
+};
+} // namespace ProjectGamma

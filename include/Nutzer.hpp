@@ -15,23 +15,26 @@ namespace ProjectGamma{
 
         private:
 
+            struct objektenutzer{
+                Objekt o = Objekt("NULL", 0, "NULL");   
+            };
+            objektenutzer om;
+
             string myName; // eigentlich erstellen bei Nutzer erstellen Funktion
             double Guthaben = 100.0; // wo anfangs Betrag festlegen
-            std::list<Objekt> myObjects;
-            map<Objekt, int> Anzahl;
-            list<Objekt>VerkaufsObjekte;
+            std::list<objektenutzer> myObjects;
+            map<objektenutzer, int> Anzahl;
+            list<objektenutzer>VerkaufsObjekte;
             list<int>AnzahlVerkauf;
 
         public:
 
             Nutzer(const std::string& Name);
-            int getPasswort();
             void kaufen(const std::string& Objekt);
             void verkaufen(string Produkt,bool ja);
-            void verkauft(string Produkt, double Preis);
-            void pay(double Preis, string Seller);
+            void verkauft(Objekt Produkt, double Preis, int anzahl);
+            bool gekauft(double Preis, Objekt Produkt, int anzahl);
             bool available ( string Produkt);
-            std::list<Objekt> getMyList();
             double getGuthaben() const;
             string getName() const;
             void druckeObjekte() const;
