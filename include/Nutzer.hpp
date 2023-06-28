@@ -3,6 +3,8 @@
 #include <list>
 #include <string>
 #include "NutzerInterface.hpp"
+#include "Objekt.hpp"
+#include <map>
 
 
 using namespace std;
@@ -15,19 +17,25 @@ namespace ProjectGamma{
 
             string myName; // eigentlich erstellen bei Nutzer erstellen Funktion
             double Guthaben = 100.0; // wo anfangs Betrag festlegen
-            std::list<string> myList;
+            std::list<Objekt> myObjects;
+            map<Objekt, int> Anzahl;
+            list<Objekt>VerkaufsObjekte;
+            list<int>AnzahlVerkauf;
 
         public:
 
-            Nutzer(const std::string& Name, int Passwort);
+            Nutzer(const std::string& Name);
             int getPasswort();
             void kaufen(const std::string& Objekt);
             void verkaufen(string Produkt,bool ja);
             void verkauft(string Produkt, double Preis);
             void pay(double Preis, string Seller);
             bool available ( string Produkt);
-            std::list<string> getMyList();
-            double getGuthaben();
+            std::list<Objekt> getMyList();
+            double getGuthaben() const;
+            string getName() const;
+            void druckeObjekte() const;
+            void Objekteaussortieren();
     };
 } snehpreet ist wunderschön love ya cringe wooooooh slay 
 imene ist todes hässlich ewwww 

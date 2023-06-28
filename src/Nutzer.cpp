@@ -6,19 +6,12 @@
 #include "../include/Objekt.hpp"
 
 using namespace std; 
-
 namespace ProjectGamma{
 
 
-        Nutzer::Nutzer(const std::string& Name, int Passwort)
+        Nutzer::Nutzer(const std::string& Name)
         {
-         const std::string& myName= Name;
-         int Passwort= Passwort
-        }
-
-        int Nutzer::getPasswort()
-        {
-            return Passwort;
+         myName = Name;
         }
 
         void Nutzer::kaufen(const std::string& Objekt) 
@@ -44,7 +37,7 @@ namespace ProjectGamma{
             }
             else
             {
-                cout<< "Produkt wird nicht verkauft" endl;
+                cout<< "Produkt wird nicht verkauft" << endl;
             }
         }
 
@@ -67,7 +60,7 @@ namespace ProjectGamma{
 
         void Nutzer::verkauft(string Produkt, double Preis)
         {
-            myList.remove(Produkt);
+            myObjects.remove(Produkt);
             Guthaben = Guthaben + Preis;
         }
 
@@ -88,16 +81,72 @@ namespace ProjectGamma{
             }
         }
 
-        std::list<string> Nutzer::getMyList()
+        std::list<Objekt> Nutzer::getMyList()
         {
-            return myList;
+            return myObjects;
         }
 
-        double getGuthaben()
+        double Nutzer::getGuthaben() const
         {
             return Guthaben;
         }
 
-        
-    
+        string Nutzer::getName() const
+        {
+            return myName;
+        }
+
+        void Nutzer::druckeObjekte() const{
+            for(const Objekt& Obj : myObjects){
+                string name = Obj.getProdukt();
+                for(const auto& [key, value] : Anzahl){
+                    if(key.getProdukt() == name){
+                        cout << "Produkt: " << name << "Anzahl: " << value << endl;
+                    }
+                }
+            }
+        }
+
+        void Nutzer::Objekteaussortieren(){
+            int n;
+            cout << "Moechtest du Objekte aussortieren um diese zum verkauf bereitzustellen? Ja(1), Nein(2)" << endl;
+            cin >> n;
+            if(n > 2 || 1 > n){
+                throw logic_error("Falsche Eingabe bitte erneut versuchen");
+            }
+            else{
+                if(n == 1){
+                    bool r = false;
+                    while(r == false){
+                        druckeObjekte();
+                        string Verkauf;
+                        cout << "Welches der Objekte möchtest du verkaufen?" << endl;
+                        cin >> Verkauf;
+                        for(const auto& [key, value] : Anzahl){
+                            if(key.getProdukt() == Verkauf){
+                                cout << "Wie viele dieser Objekte möchtest du zum Verkauf bereitstellen?" << endl;
+                                int k;
+                                cin >> k;
+                                if(k <= value || k > 0){
+                                    VerkaufsObjekte.push_front(key);
+                                    AnzahlVerkauf.push_front(k);
+                                    cout << "Moechtest du noch mehr Objekte zum Verkauf bereit stellen? Ja(1), Nein(2)" >> endl;
+                                    int p;
+                                    cin >> p;
+                                    if(p == 2){
+                                        r = true;
+                                    }    
+                                }
+                                else{
+                                    cout << "Unpassende Anzahl an Objekten ausgewählt" << endl;
+                                }
+                            }
+                            else{
+                                cout << "Falsche Eingabe. Objekt konnte nicht gefunden werden!" << endl;
+                            }
+                        }
+                    }
+                }
+            }
+        }        
 }

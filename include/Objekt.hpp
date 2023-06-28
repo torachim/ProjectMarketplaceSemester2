@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <random>
 #include "ObjektInterface.hpp"
 
 
@@ -13,17 +14,20 @@ namespace ProjectGamma{
 
         private:
 
-            float Preis;
+            double Preis;
             string Produkt;
             string Seller;
+            double Tendenz = 0.3 * (rand() % 100);
 
         public:
 
             Objekt(const std::string& produktName, double produktPreis,string produktSeller);
             std::string getProdukt() const;
-            double getPreis();
+            double getPreis()const;
             string getSeller();
             void changeSeller(string Nutzer);
+            void Preisanpassung();
+            double getTendenz();
 
 
     };
