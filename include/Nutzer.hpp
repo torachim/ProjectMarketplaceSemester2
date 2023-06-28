@@ -37,5 +37,4 @@ namespace ProjectGamma{
             void druckeObjekte() const;
             void Objekteaussortieren();
     };
-} snehpreet ist wunderschön love ya cringe wooooooh slay 
-imene ist todes hässlich ewwww 
+};
