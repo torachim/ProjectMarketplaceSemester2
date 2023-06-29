@@ -8,55 +8,11 @@
 using namespace std; 
 namespace ProjectGamma{
 
-
         Nutzer::Nutzer(const std::string& Name)
         {
          myName = Name;
         }
 
-        /*void Nutzer::kaufen(const std::string& Objekt) 
-        {   
-            string Produkt = Objekt.getProdukt();
-            bool a = available(Produkt);
-            if ( a == true)
-            {
-    
-                double Preis = Produkt.getPreis();
-                string Seller = Produkt.getSeller();
-
-                if(Guthaben>= Preis)
-                {
-                myList.add(Produkt);   // zu meiner Liste hinzufügen
-                pay(Preis, Seller);    // Bezahlen
-                Seller.verkauft();     // BezahlenSeller und entferen von der SellerListe
-                verkaufen(Produkt);    // Abfrage ob Produkt weiter verkauft werden soll
-                }
-                else{
-                    cout<< "Geld reicht nicht aus" << endl;
-                }
-            }
-            else
-            {
-                cout<< "Produkt wird nicht verkauft" << endl;
-            }
-        }*/
-
-        /*void Nutzer::verkaufen(string Produkt,bool ja)
-        {
-            bool Antwort;
-
-            //cout<< "Willst du" <<Produkt  << "weiterverkaufen? (1 für Ja oder 0 für Nein): "<<endl; // Bei Phyton erst nach Abfrage diese Funktion aufrufen
-            //cin>> Antwort;
-
-            if( Antwort== 0)
-            {
-                Markt.remove(Produkt);  // Produkt für Eigenbedarf wird vom Markt gelöscht
-            }
-            else
-            {
-            Produkt.changeSeller(myName); // Produkt wird vom Nutzer weiterverkauft
-            }
-        }*/
 
         void Nutzer::verkauft(Objekt Produkt, double Preis, int anzahl)
         {
@@ -167,9 +123,9 @@ namespace ProjectGamma{
                                 ++it;
                             }
                         }
-                        cout << "Objekt konnte nicht gefunden weerden" << endl;
+                        cout << "Objekt konnte nicht gefunden werden" << endl;
                     }
                 }
             }
-        }       
+        }      
 }

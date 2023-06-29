@@ -147,7 +147,5 @@ namespace ProjectGamma{
                 }
             }
             return false;
-        }
-
-        
+        }  
 }
