@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 #include "../include/Nutzer.hpp"
-#include "../include/Objekt.hpp"
+
 
 using namespace std; 
 namespace ProjectGamma{
@@ -62,8 +62,8 @@ namespace ProjectGamma{
         {
             string name = Produkt.getProdukt();
             for(auto it = Anzahl.begin(); it != Anzahl.end();){
-                objektenutzer m = it -> first;
-                if((m.o.getProdukt()) == name){
+                string m = it -> first;
+                if(m == name){
                     if(Anzahl.at(m) - anzahl == 0){
                         for(auto ite = myObjects.begin(); ite != myObjects.end();){
                             if(ite -> o.getProdukt() == name){
@@ -94,7 +94,7 @@ namespace ProjectGamma{
             om.o = Produkt;
             for(auto it = myObjects.begin(); it != myObjects.end();){
                 if(it -> o.getProdukt() == name){
-                    Anzahl.at(om) = Anzahl.at(om) + anzahl;
+                    Anzahl.at(name) = Anzahl.at(name) + anzahl;
                     return true;
 
                 }
@@ -104,7 +104,7 @@ namespace ProjectGamma{
 
                 }
             myObjects.push_front(om);
-            Anzahl.insert(pair<objektenutzer,int>(om, anzahl));
+            Anzahl.insert(pair<string,int>(name, anzahl));
             return true;
         }
         
@@ -123,8 +123,9 @@ namespace ProjectGamma{
             for(auto it = myObjects.begin(); it != myObjects.end();){
                 string name = it -> o.getProdukt();
                 for(auto ite = Anzahl.begin(); ite != Anzahl.end();){
-                    if(ite -> first.o.getProdukt() == name){
-                        int wert = Anzahl.at(ite -> first);
+                    string k = ite -> first;
+                    if(k == name){
+                        int wert = Anzahl.at(k);
                         cout << "Produkt: " << name << "Anzahl: " << wert << endl;
                     }
                     else{
@@ -151,12 +152,14 @@ namespace ProjectGamma{
                         cout << "Welches der Objekte möchtest du verkaufen?" << endl;
                         cin >> Verkauf;
                         for(auto it = Anzahl.begin(); it != Anzahl.end();){
-                            if(it -> first.o.getProdukt() == Verkauf){
+                            string objname = it -> first;
+                            if(objname == Verkauf){
                                 cout << "Wie viele dieser Objekte möchtest du zum Verkauf bereitstellen?" << endl;
                                 int k;
                                 cin >> k;
-                                if(k <= Anzahl.at(it -> first) || k > 0){
-                                    VerkaufsObjekte.push_front(it -> first);
+                                int q = Anzahl.at(objname);
+                                if(k <= q|| k > 0){
+                                    //VerkaufsObjekte.push_front(oj);
                                     AnzahlVerkauf.push_front(k);
                                     cout << "Moechtest du noch mehr Objekte zum Verkauf bereit stellen? Ja(1), Nein(2)" << endl;
                                     int p;

@@ -3,8 +3,7 @@
 #include <string>
 #include <map>
 #include "../include/Handelsplatz.hpp"
-#include "../include/Objekt.hpp"
-#include "../include/Nutzer.hpp"
+
 
 using namespace std; 
 
@@ -127,10 +126,6 @@ namespace ProjectGamma{
             }
         }   
 
-        /*void Handelsplatz::addNutzer(string user) 
-        {
-            Nutzer.add(user);
-        }*/
 
         void Handelsplatz::addProdukt(string Produkt, double Preis) 
         {
