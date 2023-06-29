@@ -22,7 +22,7 @@ namespace ProjectGamma{
 
             string myName; // eigentlich erstellen bei Nutzer erstellen Funktion
             double Guthaben = 100.0; // wo anfangs Betrag festlegen
-            std::list<objektenutzer> myObjects;
+            list<objektenutzer> myObjects;
             map<objektenutzer, int> Anzahl;
             list<objektenutzer>VerkaufsObjekte;
             list<int>AnzahlVerkauf;

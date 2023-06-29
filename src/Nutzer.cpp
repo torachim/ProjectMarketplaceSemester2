@@ -3,7 +3,6 @@
 #include <string>
 #include <map>
 #include "../include/Nutzer.hpp"
-#include "../include/Handelsplatz.hpp"
 #include "../include/Objekt.hpp"
 
 using namespace std; 
@@ -61,10 +60,12 @@ namespace ProjectGamma{
 
         void Nutzer::verkauft(Objekt Produkt, double Preis, int anzahl)
         {
+            string name = Produkt.getProdukt();
             for(auto it = Anzahl.begin(); it != Anzahl.end();){
-                if(it -> first.o.getProdukt() == Produkt.getProdukt()){
-                    if(Anzahl.at(it -> first) - anzahl == 0){
-                        myObjects.remove(it -> first);
+                objektenutzer m = it -> first;
+                if((m.o.getProdukt()) == name){
+                    if(Anzahl.at(m) - anzahl == 0){
+                        myObjects.remove(m);
                         Anzahl.erase(it);
                         
                     }
@@ -83,9 +84,10 @@ namespace ProjectGamma{
 
         bool Nutzer::gekauft(double Preis, Objekt Produkt, int anzahl)
         {
+            string name = Produkt.getProdukt();
             om.o = Produkt;
             for(auto it = myObjects.begin(); it != myObjects.end();){
-                if(it -> o.getProdukt() == Produkt.getProdukt()){
+                if(it -> o.getProdukt() == name){
                     Anzahl.at(om) = Anzahl.at(om) + anzahl;
                     return true;
 
@@ -169,5 +171,5 @@ namespace ProjectGamma{
                     }
                 }
             }
-        }        
+        }       
 }

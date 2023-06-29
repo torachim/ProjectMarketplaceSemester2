@@ -10,6 +10,10 @@ using namespace std;
 
 namespace ProjectGamma{
 
+        Handelsplatz::Handelsplatz(){
+
+        }
+
         void Handelsplatz::login()
         {
             string Benutzername;
@@ -121,7 +125,7 @@ namespace ProjectGamma{
                 ++it;
                 
             }
-        }    
+        }   
 
         /*void Handelsplatz::addNutzer(string user) 
         {
