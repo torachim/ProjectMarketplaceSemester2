@@ -65,9 +65,15 @@ namespace ProjectGamma{
                 objektenutzer m = it -> first;
                 if((m.o.getProdukt()) == name){
                     if(Anzahl.at(m) - anzahl == 0){
-                        myObjects.remove(m);
-                        Anzahl.erase(it);
-                        
+                        for(auto ite = myObjects.begin(); ite != myObjects.end();){
+                            if(ite -> o.getProdukt() == name){
+                                myObjects.erase(ite);
+                            }
+                            else{
+                                ++it;
+                            }
+                        }
+                        Anzahl.erase(it);                        
                     }
                     else{
                         int newvalue = Anzahl.at(it -> first) - anzahl;
