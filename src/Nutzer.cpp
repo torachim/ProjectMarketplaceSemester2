@@ -58,9 +58,9 @@ namespace ProjectGamma{
             }
         }*/
 
-        void Nutzer::verkauft(Objekt Produkt, double Preis, int anzahl)
+        void Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
-            string name = Produkt.getProdukt();
+            string name = Produkt;
             for(auto it = Anzahl.begin(); it != Anzahl.end();){
                 string m = it -> first;
                 if(m == name){
@@ -88,10 +88,13 @@ namespace ProjectGamma{
         }
             
 
-        bool Nutzer::gekauft(double Preis, Objekt Produkt, int anzahl)
+        bool Nutzer::gekauft(double Preis, string Produkt, int anzahl)
         {
-            string name = Produkt.getProdukt();
-            om.o = Produkt;
+            Guthaben = Guthaben - (Preis);
+            string name = Produkt;
+            string neuerverkäufer = getName();
+            Objekt no = Objekt (Produkt, Preis, neuerverkäufer);
+            om.o = no;
             for(auto it = myObjects.begin(); it != myObjects.end();){
                 if(it -> o.getProdukt() == name){
                     Anzahl.at(name) = Anzahl.at(name) + anzahl;
@@ -160,7 +163,7 @@ namespace ProjectGamma{
                                 int q = Anzahl.at(objname);
                                 if(k <= q|| k > 0){
                                     //VerkaufsObjekte.push_front(oj);
-                                    AnzahlVerkauf.push_front(k);
+                                    VerkaufsAnzahl.insert(pair <string, int> (Verkauf, k));
                                     cout << "Moechtest du noch mehr Objekte zum Verkauf bereit stellen? Ja(1), Nein(2)" << endl;
                                     int p;
                                     cin >> p;
@@ -180,5 +183,7 @@ namespace ProjectGamma{
                     }
                 }
             }
-        }       
+        }
+
+
 }

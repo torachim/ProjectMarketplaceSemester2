@@ -24,14 +24,13 @@ namespace ProjectGamma{
             double Guthaben = 100.0; // wo anfangs Betrag festlegen
             list<objektenutzer> myObjects;
             map<string, int> Anzahl;
-            list<objektenutzer>VerkaufsObjekte;
-            list<int>AnzahlVerkauf;
+            map<string, int> VerkaufsAnzahl;
 
         public:
 
             Nutzer(const std::string& Name);
-            void verkauft(Objekt Produkt, double Preis, int anzahl);
-            bool gekauft(double Preis, Objekt Produkt, int anzahl);
+            void verkauft(string Produkt, double Preis, int anzahl);
+            bool gekauft(double Preis, string Produkt, int anzahl);
             double getGuthaben() const;
             string getName() const;
             void druckeObjekte() const;

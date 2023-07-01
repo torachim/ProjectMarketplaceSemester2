@@ -25,6 +25,7 @@ public:
   bool nameVergeben(string Name);
   bool findeBenutzer(string Benutzername);
   void Preisanpassung();
+  bool Handel();
 
 private:
   struct nutzerobjekt {

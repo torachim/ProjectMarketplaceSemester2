@@ -153,5 +153,37 @@ namespace ProjectGamma{
 
         }
 
+        bool Handelsplatz::Handel()
+        {
+          nutzerobjekt an = MarktNutzer.front();
+          showMarket();
+          cout << "Welches Objekt möchtest du kaufen?" << endl;
+          string product;
+          cin >> product;
+          for(auto it = Markt.begin(); it != Markt.end();){
+            if(it -> o.getProdukt() == product){
+                cout << "Wie viele " << it -> o.getProdukt() << " möchtest du kaufen?" << endl;
+                int k;
+                cin >> k;
+                double price = k*(it -> o.getPreis());
+                if(price <= an.n.getGuthaben()){
+                    an.n.gekauft(price, product, k);
+                    cout << "Kauf abgeschlossen" << "Noch vorhandenens Guthaben: " << an.n.getGuthaben() << endl;
+                    return true;
+                }
+                else{
+                    cout << "Zu wenig Geld vorhanden. Kauf nicht möglich" << endl;
+                    return false;
+                }
+            }
+            else{
+                ++it;
+            }
+          }
+          cout << "Produkt konnte nicht gefunden werden. Kauf konnte nicht abgeschlossen werden!" << endl;
+          return false;
+
+        }
+
         
 }

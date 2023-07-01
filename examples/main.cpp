@@ -18,5 +18,6 @@ using namespace ProjectGamma;
         HP.showMarket();
         HP.Preisanpassung();
         HP.showMarket();
+        HP.Handel();
         return 0;
     }
