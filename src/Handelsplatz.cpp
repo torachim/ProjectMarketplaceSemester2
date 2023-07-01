@@ -144,5 +144,14 @@ namespace ProjectGamma{
             return false;
         }
 
+        void Handelsplatz::Preisanpassung()
+        {
+            for(auto it = Markt.begin(); it != Markt.end();){
+                it -> o.Preisanpassung();
+                ++it;
+            }
+
+        }
+
         
 }
