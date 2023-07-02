@@ -168,7 +168,7 @@ namespace ProjectGamma{
                 double price = k*(it -> o.getPreis());
                 if(price <= an.n.getGuthaben()){
                     an.n.gekauft(price, product, k);
-                    cout << "Kauf abgeschlossen" << "Noch vorhandenens Guthaben: " << an.n.getGuthaben() << endl;
+                    cout << "Kauf abgeschlossen" << " Noch vorhandenens Guthaben: " << an.n.getGuthaben() << endl;
                     return true;
                 }
                 else{
