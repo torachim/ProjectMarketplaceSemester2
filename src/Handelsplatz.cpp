@@ -3,8 +3,7 @@
 #include <string>
 #include <map>
 #include "../include/Handelsplatz.hpp"
-#include "../include/Objekt.hpp"
-#include "../include/Nutzer.hpp"
+
 
 using namespace std; 
 
@@ -127,10 +126,6 @@ namespace ProjectGamma{
             }
         }   
 
-        /*void Handelsplatz::addNutzer(string user) 
-        {
-            Nutzer.add(user);
-        }*/
 
         void Handelsplatz::addProdukt(string Produkt, double Preis) 
         {
@@ -147,5 +142,52 @@ namespace ProjectGamma{
                 }
             }
             return false;
+<<<<<<< HEAD
         }  
+=======
+        }
+
+        void Handelsplatz::Preisanpassung()
+        {
+            for(auto it = Markt.begin(); it != Markt.end();){
+                it -> o.Preisanpassung();
+                ++it;
+            }
+
+        }
+
+        bool Handelsplatz::Handel()
+        {
+          nutzerobjekt an = MarktNutzer.front();
+          showMarket();
+          cout << "Welches Objekt möchtest du kaufen?" << endl;
+          string product;
+          cin >> product;
+          for(auto it = Markt.begin(); it != Markt.end();){
+            if(it -> o.getProdukt() == product){
+                cout << "Wie viele " << it -> o.getProdukt() << " möchtest du kaufen?" << endl;
+                int k;
+                cin >> k;
+                double price = k*(it -> o.getPreis());
+                if(price <= an.n.getGuthaben()){
+                    an.n.gekauft(price, product, k);
+                    cout << "Kauf abgeschlossen" << " Noch vorhandenens Guthaben: " << an.n.getGuthaben() << endl;
+                    return true;
+                }
+                else{
+                    cout << "Zu wenig Geld vorhanden. Kauf nicht möglich" << endl;
+                    return false;
+                }
+            }
+            else{
+                ++it;
+            }
+          }
+          cout << "Produkt konnte nicht gefunden werden. Kauf konnte nicht abgeschlossen werden!" << endl;
+          return false;
+
+        }
+
+        
+>>>>>>> refs/remotes/origin/main
 }

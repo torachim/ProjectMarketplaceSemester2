@@ -17,7 +17,7 @@ namespace ProjectGamma{
             double Preis;
             string Produkt;
             string Seller;
-            double Tendenz = 0.3 * (rand() % 100);
+            double Tendenz = 0.3 * ((rand() % 10) - 1 );
 
         public:
 

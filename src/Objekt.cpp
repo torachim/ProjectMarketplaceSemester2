@@ -44,10 +44,10 @@ namespace ProjectGamma{
         {
             int Startpreis = getPreis();
             int min = 1;
-            int max = 100;
-            double dt = 0.2; 
+            int max = 10;
+            double dt = 0.002; 
             double Tend = getTendenz();
-            int Y = rand() % max;
+            int Y = 2*(rand() % max) - 1;
             Preis = Startpreis * (1.0 + Tend*dt + 0.8*sqrt(dt)*Y);
         }
     
