@@ -8,7 +8,7 @@
 using namespace std; 
 namespace ProjectGamma{
 
-        Nutzer::Nutzer(const std::string& Name)
+        Nutzer::Nutzer(const std::string& Name)             //gibt Name des Nutzer zurück
         {
          myName = Name;
         }
@@ -17,22 +17,22 @@ namespace ProjectGamma{
         void Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
             string name = Produkt;
-            for(auto it = Anzahl.begin(); it != Anzahl.end();){
-                string m = it -> first;
-                if(m == name){
-                    if(Anzahl.at(m) - anzahl == 0){
-                        for(auto ite = myObjects.begin(); ite != myObjects.end();){
+            for(auto it = Anzahl.begin(); it != Anzahl.end();){                 //Entfernt die angebene Anzahl des Produktes, falls Produkt mehrfach vorhanden
+                string m = it -> first;                                         
+                if(m == name){                                                  // wenn Eingabe ist gespeichert 
+                    if(Anzahl.at(m) - anzahl == 0){                              //Wenn alle Vorräte verkauft
+                        for(auto ite = myObjects.begin(); ite != myObjects.end();){ //durchläuft meine Objekte
                             if(ite -> o.getProdukt() == name){
-                                myObjects.erase(ite);
+                                myObjects.erase(ite);                               //entfernt item von meinen Produkten
                             }
                             else{
-                                ++it;
+                                ++it;                                              //itertor erhöhene
                             }
                         }
                         Anzahl.erase(it);                        
                     }
                     else{
-                        int newvalue = Anzahl.at(it -> first) - anzahl;
+                        int newvalue = Anzahl.at(it -> first) - anzahl;          //vorhanden Anzahl des Produktes anpassen
                         Anzahl[it -> first] = newvalue;
                     }
                 }
@@ -40,20 +40,20 @@ namespace ProjectGamma{
                     ++it;
                 }
             }
-            Guthaben = Guthaben + (Preis * anzahl);
+            Guthaben = Guthaben + (Preis * anzahl);                              // Anpassung Guthaben des Verkäufers
         }
             
 
-        bool Nutzer::gekauft(double Preis, string Produkt, int anzahl)
+        bool Nutzer::gekauft(double Preis, string Produkt, int anzahl)          //Anpass Funktionn für den Käufer
         {
-            Guthaben = Guthaben - (Preis);
+            Guthaben = Guthaben - (Preis);                                      //Anpassung des Kontostandes
             string name = Produkt;
             string neuerverkäufer = getName();
-            Objekt no = Objekt (Produkt, Preis, neuerverkäufer);
+            Objekt no = Objekt (Produkt, Preis, neuerverkäufer);                //Anpassung des Verkäufers
             om.o = no;
             for(auto it = myObjects.begin(); it != myObjects.end();){
                 if(it -> o.getProdukt() == name){
-                    Anzahl.at(name) = Anzahl.at(name) + anzahl;
+                    Anzahl.at(name) = Anzahl.at(name) + anzahl;                //Anzahl des Produktes wird gespeichert
                     return true;
 
                 }
@@ -62,30 +62,30 @@ namespace ProjectGamma{
                 }  
 
                 }
-            myObjects.push_front(om);
-            Anzahl.insert(pair<string,int>(name, anzahl));
+            myObjects.push_front(om);                                           //speichern in map für meine Objekte
+            Anzahl.insert(pair<string,int>(name, anzahl));                       
             return true;
         }
         
 
-        double Nutzer::getGuthaben() const
+        double Nutzer::getGuthaben() const  //gibt Guthaben des Nutzers zurück
         {
             return Guthaben;
         }
 
-        string Nutzer::getName() const
+        string Nutzer::getName() const   //gibt Namen des Nutzers zurück
         {
             return myName;
         }
 
-        void Nutzer::druckeObjekte() const{
-            for(auto it = myObjects.begin(); it != myObjects.end();){
-                string name = it -> o.getProdukt();
-                for(auto ite = Anzahl.begin(); ite != Anzahl.end();){
+        void Nutzer::druckeObjekte() const{  //druckt die eigenen Objekte aus
+            for(auto it = myObjects.begin(); it != myObjects.end();){  //durchläuft alle Objekte
+                string name = it -> o.getProdukt();  //entnimmt Produkt Namen
+                for(auto ite = Anzahl.begin(); ite != Anzahl.end();){ //durchläuft Anzahl 
                     string k = ite -> first;
-                    if(k == name){
+                    if(k == name){     //bestimmt passende Anzahl zum Produkt
                         int wert = Anzahl.at(k);
-                        cout << "Produkt: " << name << "Anzahl: " << wert << endl;
+                        cout << "Produkt: " << name << "Anzahl: " << wert << endl;  //gibt produkt und passende Anzahl zurück                   
                     }
                     else{
                         ++ite;
@@ -95,55 +95,52 @@ namespace ProjectGamma{
             }
         }
 
-        void Nutzer::Objekteaussortieren(){
+        void Nutzer::Objekteaussortieren(){ //bestimmt ob Produkt weiterverkauft wird oder nicht
             int n;
-            cout << "Moechtest du Objekte aussortieren um diese zum verkauf bereitzustellen? Ja(1), Nein(2)" << endl;
+            cout << "Moechtest du Objekte aussortieren um diese zum verkauf bereitzustellen? Ja(1), Nein(2)" << endl; //abfrage, ob weiterverkauft wird oder nicht
             cin >> n;
             if(n > 2 || 1 > n){
-                throw logic_error("Falsche Eingabe bitte erneut versuchen");
+                throw logic_error("Falsche Eingabe bitte erneut versuchen"); //Ausnahmebehandlung bei falscher Eingabe
             }
             else{
-                if(n == 1){
+                if(n == 1){   //falls weiterverkauft werden soll      
                     bool r = false;
                     while(r == false){
-                        druckeObjekte();
+                        druckeObjekte(); //ausgabe der eigenen Produkten
                         string Verkauf;
-                        cout << "Welches der Objekte möchtest du verkaufen?" << endl;
+                        cout << "Welches der Objekte möchtest du verkaufen?" << endl; //auswahl des Produktes
                         cin >> Verkauf;
-                        for(auto it = Anzahl.begin(); it != Anzahl.end();){
+                        for(auto it = Anzahl.begin(); it != Anzahl.end();){ 
                             string objname = it -> first;
-                            if(objname == Verkauf){
-                                cout << "Wie viele dieser Objekte möchtest du zum Verkauf bereitstellen?" << endl;
+                            if(objname == Verkauf){  // aus map der iegen Produkte entfrenen
+                                cout << "Wie viele dieser Objekte möchtest du zum Verkauf bereitstellen?" << endl; //anzahl bestimmen
                                 int k;
                                 cin >> k;
                                 int q = Anzahl.at(objname);
-                                if(k <= q|| k > 0){
+                                if(k <= q|| k > 0){ //für die Anzahl
                                     //VerkaufsObjekte.push_front(oj);
-                                    VerkaufsAnzahl.insert(pair <string, int> (Verkauf, k));
-                                    cout << "Moechtest du noch mehr Objekte zum Verkauf bereit stellen? Ja(1), Nein(2)" << endl;
+                                    VerkaufsAnzahl.insert(pair <string, int> (Verkauf, k)); //Produkt wird zum verkauf bereitgestellt
+                                    cout << "Moechtest du noch mehr Objekte zum Verkauf bereit stellen? Ja(1), Nein(2)" << endl; 
                                     int p;
                                     cin >> p;
-                                    if(p == 2){
+                                    if(p == 2){ //falls nicht weitere Produkte verkauft werden 
                                         r = true;
                                     }    
                                 }
                                 else{
-                                    cout << "Unpassende Anzahl an Objekten ausgewählt" << endl;
+                                    cout << "Unpassende Anzahl an Objekten ausgewählt" << endl; // falls zu hohe odrer niedrige Anzahl gewählt
                                 }
                             }
                             else{
                                 ++it;
                             }
                         }
-                        cout << "Objekt konnte nicht gefunden werden" << endl;
+                        cout << "Objekt konnte nicht gefunden werden" << endl; //falls man diese Produkt nicht besitzt
                     }
                 }
+               } 
             }
-<<<<<<< HEAD
-        }      
-=======
-        }
-
-
->>>>>>> refs/remotes/origin/main
 }
+
+
+                                        

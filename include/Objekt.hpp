@@ -17,17 +17,17 @@ namespace ProjectGamma{
             double Preis;
             string Produkt;
             string Seller;
-            double Tendenz = 0.3 * ((rand() % 10) - 1 );
+            double Tendenz = 0.3 * ((rand() % 10) - 1 ); //Tendenz durch zufall
 
         public:
 
             Objekt(const std::string& produktName, double produktPreis,string produktSeller);
-            std::string getProdukt() const;
-            double getPreis()const;
-            string getSeller();
-            void changeSeller(string Nutzer);
-            void Preisanpassung();
-            double getTendenz();
+            std::string getProdukt() const;  //gibt Produktnamen zurück
+            double getPreis()const;          //gibt Preis zurück
+            string getSeller();              // gibt Verkäufer zurück
+            void changeSeller(string Nutzer); // passt Verkäufer an
+            void Preisanpassung();             //berechnet neuen Wert für den Preis
+            double getTendenz();              //bestimmt Tendenzwert
 
 
     };

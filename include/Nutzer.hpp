@@ -20,20 +20,20 @@ namespace ProjectGamma{
             };
             objektenutzer om;
 
-            string myName; // eigentlich erstellen bei Nutzer erstellen Funktion
-            double Guthaben = 100.0; // wo anfangs Betrag festlegen
-            list<objektenutzer> myObjects;
-            map<string, int> Anzahl;
-            map<string, int> VerkaufsAnzahl;
+            string myName; // gibt Namen zurück
+            double Guthaben = 100.0; // anfangsbetrag festlegen
+            list<objektenutzer> myObjects; //liste mit den Objekten eines Nutzers
+            map<string, int> Anzahl;     //speichert Anzahl der produkte
+            map<string, int> VerkaufsAnzahl; //speichert Produkte zum Verkauf
 
         public:
 
             Nutzer(const std::string& Name);
-            void verkauft(string Produkt, double Preis, int anzahl);
-            bool gekauft(double Preis, string Produkt, int anzahl);
-            double getGuthaben() const;
-            string getName() const;
-            void druckeObjekte() const;
-            void Objekteaussortieren();
+            void verkauft(string Produkt, double Preis, int anzahl);  //verkaufen eines Objektes
+            bool gekauft(double Preis, string Produkt, int anzahl);   //kaufen eines Objektes
+            double getGuthaben() const;                              //wiedergabe des Guthaben des Nutzers
+            string getName() const;                                 //wiedergabe des Namen des Nutzers                               
+            void druckeObjekte() const;                             // druckt Objekte aus
+            void Objekteaussortieren();                             // zum weiter Verkauffen von Prdoukten oder Nutzung für Eigenbedarf
     };
 };
