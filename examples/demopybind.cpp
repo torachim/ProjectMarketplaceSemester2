@@ -3,6 +3,7 @@
 #include "../include/Nutzer.hpp"
 #include <iostream>
 #include<string>
+#include <map>
 #include<pybind11/pybind11.h>
 
 namespace py = pybind11;
@@ -20,6 +21,7 @@ PYBIND11_MODULE(handelsplatz, m){
         .def("namekontrolle", &Handelsplatz::nameVergeben)
         .def("Benutzerfinden", &Handelsplatz::findeBenutzer)
         .def("Pricechange", &Handelsplatz::Preisanpassung)
+        .def("marktzeigen", &Handelsplatz::showMarket)
         .def("handeln", &Handelsplatz::Handel);
     
     py::class_<::Nutzer>(m, "Nutzer")
@@ -29,7 +31,9 @@ PYBIND11_MODULE(handelsplatz, m){
         .def("Geldsehen", &Nutzer::getGuthaben)
         .def("Namensehen", &Nutzer::getName)
         .def("besitzesehen", &Nutzer::druckeObjekte)
-        .def("produkteBereitstellen", &Nutzer::Objekteaussortieren);
+        .def("produkteBereitstellen", &Nutzer::Objekteaussortieren)
+        .def("erhalteVerkaeufe", &Nutzer::getVerkaufsAnzahl)
+        .def("Produkteverkaufen", &Nutzer::produktzumverkauf);
 
     py::class_<::Objekt>(m, "Objekt")
         .def(py::init<std::string, double, std::string>())
@@ -38,6 +42,5 @@ PYBIND11_MODULE(handelsplatz, m){
         .def("ErhalteSeller", &Objekt::getSeller)
         .def("Preisaenderung", &Objekt::Preisanpassung)
         .def("erhalteTendenz", &Objekt::getTendenz);
-
 }
 

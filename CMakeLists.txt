@@ -52,3 +52,4 @@ install(TARGETS handelsplatz
 # ./build/demo1
 
 #cmake -S . -B build && cmake --build build && cmake --install build
+

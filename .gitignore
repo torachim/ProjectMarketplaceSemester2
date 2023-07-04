@@ -3,3 +3,4 @@
 *build/
 *.cache/clangd/
 *CMakeLists.txt
+*main.cpp

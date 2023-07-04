@@ -122,68 +122,63 @@ namespace ProjectGamma{
             return myName;
         }
 
-        void Nutzer::druckeObjekte() const{
-            for(auto it = myObjects.begin(); it != myObjects.end();){
-                string name = it -> o.getProdukt();
-                for(auto ite = Anzahl.begin(); ite != Anzahl.end();){
-                    string k = ite -> first;
-                    if(k == name){
+        bool Nutzer::druckeObjekte() const{
+            if(myObjects.size() == 1){
+                myObjects.front().o.getProdukt();
+                int wert = Anzahl.at(myObjects.front().o.getProdukt());
+                cout << "Produkt: " << myObjects.front().o.getProdukt() << "Anzahl: " << wert << endl;
+            }
+            else{
+                //for(auto it = myObjects.begin(); it != myObjects.end();){
+                  //  string name = it -> o.getProdukt();
+                    for(auto ite = Anzahl.begin(); ite != Anzahl.end();){
+                        string k = ite -> first;
+                        //if(k == name){
                         int wert = Anzahl.at(k);
-                        cout << "Produkt: " << name << "Anzahl: " << wert << endl;
-                    }
-                    else{
+                        cout << "Produkt: " << k << " Anzahl: " << wert << endl;
+                    
                         ++ite;
                     }
                 }
-                ++it;
-            }
-        }
+            return true;
+            }    
 
-        void Nutzer::Objekteaussortieren(){
-            int n;
-            cout << "Moechtest du Objekte aussortieren um diese zum verkauf bereitzustellen? Ja(1), Nein(2)" << endl;
-            cin >> n;
-            if(n > 2 || 1 > n){
-                throw logic_error("Falsche Eingabe bitte erneut versuchen");
-            }
-            else{
-                if(n == 1){
-                    bool r = false;
-                    while(r == false){
-                        druckeObjekte();
-                        string Verkauf;
-                        cout << "Welches der Objekte möchtest du verkaufen?" << endl;
-                        cin >> Verkauf;
-                        for(auto it = Anzahl.begin(); it != Anzahl.end();){
-                            string objname = it -> first;
-                            if(objname == Verkauf){
-                                cout << "Wie viele dieser Objekte möchtest du zum Verkauf bereitstellen?" << endl;
-                                int k;
-                                cin >> k;
-                                int q = Anzahl.at(objname);
-                                if(k <= q|| k > 0){
-                                    //VerkaufsObjekte.push_front(oj);
-                                    VerkaufsAnzahl.insert(pair <string, int> (Verkauf, k));
-                                    cout << "Moechtest du noch mehr Objekte zum Verkauf bereit stellen? Ja(1), Nein(2)" << endl;
-                                    int p;
-                                    cin >> p;
-                                    if(p == 2){
-                                        r = true;
-                                    }    
-                                }
-                                else{
-                                    cout << "Unpassende Anzahl an Objekten ausgewählt" << endl;
-                                }
-                            }
-                            else{
-                                ++it;
-                            }
-                        }
-                        cout << "Objekt konnte nicht gefunden weerden" << endl;
+        bool Nutzer::Objekteaussortieren(string Produkt, int anzahl){
+            cout << Anzahl.size() << endl;;
+            for(auto it = Anzahl.begin(); it != Anzahl.end();){
+                string objname = it -> first;
+                if(objname == Produkt){
+
+                    int q = Anzahl.at(objname);
+                    if(anzahl <= q && anzahl > 0){
+
+                        VerkaufsAnzahl.insert(pair <string, int> (Produkt, anzahl));
+                        return true; 
+                    }
+                    else{
+                        cout << "Unpassende Anzahl an Objekten ausgewählt" << endl;
+                        return false;
                     }
                 }
+                else{
+                    ++it;
+                }
             }
+            cout << "Objekt konnte nicht gefunden weerden" << endl;
+            return false;          
         }
+
+        map<string, int> Nutzer::getVerkaufsAnzahl() const{
+            return VerkaufsAnzahl;
+        }
+
+        bool Nutzer::produktzumverkauf(string Produkt, int anzahl){
+            VerkaufsAnzahl.insert(pair<string, int> (Produkt, anzahl));
+            return true;
+        }
+                
+            
+        
 
 
 }

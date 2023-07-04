@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+
 using namespace std;
 
 namespace ProjectGamma {
@@ -39,5 +40,6 @@ private:
   std::list<marktobjekte> Markt;
   std::list<nutzerobjekt> MarktNutzer;
   std::map<string, string> Information;
+  
 };
 } // namespace ProjectGamma

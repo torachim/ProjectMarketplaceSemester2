@@ -33,7 +33,9 @@ namespace ProjectGamma{
             bool gekauft(double Preis, string Produkt, int anzahl);
             double getGuthaben() const;
             string getName() const;
-            void druckeObjekte() const;
-            void Objekteaussortieren();
+            bool druckeObjekte() const;
+            bool Objekteaussortieren(string Produkt, int anzahl);
+            map<string, int> getVerkaufsAnzahl() const;
+            bool produktzumverkauf(string produkt, int anzahl);
     };
 };
