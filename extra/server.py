@@ -25,7 +25,7 @@ h = Handelsplatz()
 h.produkt_hinzufuegen("15gHaze", 30.5)
 h.produkt_hinzufuegen("Waschmaschiene", 15.0)
 h.produkt_hinzufuegen("Bundeslade", 45.0)
-passwoerternutzer, angebote, bereitgestellteObjekte = {}, {"15gHaze" : 30.5, "Waschmaschiene" : 15.0, "Bundeslade" : 45.0}, {}
+passwoerternutzer, angebote, bereitgestellteObjekte, verkaufteObjekte = {}, {"15gHaze" : 30.5, "Waschmaschiene" : 15.0, "Bundeslade" : 45.0, "Fifa23" : 22.4, "iPhone" : 87.8, "KastenStubbi" : 12.0, "KampfpanzerLeopard" : 69.0, "Atomkraftwerk" : 152.0, "Bienenschwarm" : 5.8, "KlausurLoesungen" : 11.5, "Sonnensystem" : 1.0}, {}, {}
 aktuellenutzer = []
 nutzerverkaufe = []
 
@@ -77,29 +77,97 @@ async def Objektebereitstellen(produkt : str, anzahl : int, benutzername : str):
       global bereitgestellteObjekte, nutzerverkaufe
       for p in nutzerverkaufe:
            if (p.Namensehen() == benutzername):
-                p.Produkteverkaufen(produkt, anzahl)  
-                k = {produkt : anzahl}
-                bereitgestellteObjekte[benutzername] = k
+                p.Produkteverkaufen(produkt, anzahl)
+                if(benutzername in bereitgestellteObjekte):
+                     p = bereitgestellteObjekte[benutzername]
+                     p[produkt] = anzahl
+                else:
+                  k = {produkt : anzahl}
+                  bereitgestellteObjekte = {benutzername : k}
+                print(bereitgestellteObjekte)
 
       return{"information" : 'Objekt(e) zum Verkauf bereitgestellt. Das Geld wird nach dem Verkauf uebermmittelt',
              "Status" : True}
 
 @app.get("/handel/untereinander/{partner}")
 async def handeluntereinander(partner : str):
-      global nutzerverkaufe
+      global nutzerverkaufe,bereitgestellteObjekte
       for p in nutzerverkaufe:
-           print(partner)
-           print(p.Namensehen())
+           
            if(p.Namensehen() == partner):
-                print("Jallo")
-                ver = p.erhalteVerkaeufe()
-                l = []
-                for k,v in ver:
-                     t = [k ,v]
-                     l.append(t)
-                     print("HAllo")
-                return {"information" : l,
+                if(partner in bereitgestellteObjekte):
+                  l = bereitgestellteObjekte[p.Namensehen()]
+                  return {"information" : l,
+                          "Status" : True}
+                else:
+                     return{"information" : "Diese Nutzer verkauft aktuell keine Ware",                          
+                            "Status" : False}
+                
+
+                
+@app.get("/handel/werterhalten/{wahl}")
+async def wertgeben(wahl : str):
+      global angebote
+      preis = angebote[wahl]
+      return {"information" : preis,
+              "Status" : True}
+
+@app.get("/handel/kaufueberpruefen/{partner}/{wahl}/{anzahl}")
+async def kaufueberpruefen(partner : str, wahl : str, anzahl : int):
+      global nutzerverkaufe, bereitgestellteObjekte
+      k = bereitgestellteObjekte[partner]
+      if wahl in k:
+           if anzahl <= k[wahl]:
+                return {"information" : "Kauf kann abgeschlossen werden",
                         "Status" : True}
+           else:
+                return {"information" : "Es werden zu wenige Objekte verkauft",
+                        "Status" : False}
+      else:
+           return {"information" : "Objekt konnte nicht gefunden werden",
+                   "Status" : False}
+
+@app.get("/handel/kaufvonnutzerabschließen/{partner}/{wahl}/{anzahl}")
+async def kaufvonnutzer(partner : str, wahl : str, anzahl : int):
+      global nutzerverkaufe, bereitgestellteObjekte, angebote, verkaufteObjekte
+      for k in nutzerverkaufe:
+           if k.Namensehen() == partner:
+                if partner in verkaufteObjekte:
+                  l = verkaufteObjekte[partner]
+                  l.append([wahl, anzahl])
+                else:                    
+                     q = []
+                     u = [wahl, anzahl]
+                     q.append(u)
+                     verkaufteObjekte = {partner : q}
+
+                p = bereitgestellteObjekte[partner]
+                neueanzahl = p[wahl] - anzahl
+                print(verkaufteObjekte)
+
+                if neueanzahl == 0:
+                     del p[wahl]
+                else:
+                     p[wahl] = neueanzahl
+      return {"information" : "Kauf abgeschlossen",
+              "Status" : True}
+
+
+@app.get("/thread/verkaufbekommen/{benutzername}")
+async def verkauferhalten(benutzername : str):
+      global verkaufteObjekte
+      if benutzername in verkaufteObjekte:
+           li = verkaufteObjekte[benutzername]
+           return {"information" : li,
+                   "Status" : True}
+      else:
+           return {"Status" : False}
+
+
+
+
+
+
               
                 
 

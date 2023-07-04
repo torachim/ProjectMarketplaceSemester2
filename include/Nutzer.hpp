@@ -29,7 +29,7 @@ namespace ProjectGamma{
         public:
 
             Nutzer(const std::string& Name);
-            void verkauft(string Produkt, double Preis, int anzahl);
+            bool verkauft(string Produkt, double Preis, int anzahl);
             bool gekauft(double Preis, string Produkt, int anzahl);
             double getGuthaben() const;
             string getName() const;

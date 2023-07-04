@@ -58,33 +58,46 @@ namespace ProjectGamma{
             }
         }*/
 
-        void Nutzer::verkauft(string Produkt, double Preis, int anzahl)
+        bool Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
             string name = Produkt;
+            cout << "HAllo" <<endl;
             for(auto it = Anzahl.begin(); it != Anzahl.end();){
                 string m = it -> first;
                 if(m == name){
+                    cout << "J" << endl;
                     if(Anzahl.at(m) - anzahl == 0){
+                        cout << "T" << endl;
                         for(auto ite = myObjects.begin(); ite != myObjects.end();){
+                            cout << "P" << endl;
                             if(ite -> o.getProdukt() == name){
+                                cout << "Q" << endl;
                                 myObjects.erase(ite);
+                                Guthaben = Guthaben + (Preis * anzahl);
+                                Anzahl.erase(it); 
+                                return true;  
                             }
                             else{
                                 ++it;
                             }
                         }
-                        Anzahl.erase(it);                        
+                     
                     }
                     else{
+                        cout << "Y" << endl;
+
                         int newvalue = Anzahl.at(it -> first) - anzahl;
+                        Guthaben = Guthaben + (Preis * anzahl);
                         Anzahl[it -> first] = newvalue;
+                        return true;
                     }
                 }
                 else{
                     ++it;
                 }
             }
-            Guthaben = Guthaben + (Preis * anzahl);
+            return true;
+ 
         }
             
 
@@ -144,7 +157,8 @@ namespace ProjectGamma{
             }    
 
         bool Nutzer::Objekteaussortieren(string Produkt, int anzahl){
-            cout << Anzahl.size() << endl;;
+            cout << myObjects.size() << endl;              
+            cout << Anzahl.size() << endl;
             for(auto it = Anzahl.begin(); it != Anzahl.end();){
                 string objname = it -> first;
                 if(objname == Produkt){

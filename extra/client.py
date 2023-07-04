@@ -9,6 +9,7 @@ from simple_term_menu import TerminalMenu
 import requests
 
 
+
 base_api_url = "http://127.0.0.1:8000"
 MeineObjekte = []
 Verkaufsanzahl, ObjekteAnzahl = {}, {}
@@ -16,6 +17,23 @@ AktuelleRD = float (100.0)
 benutzername = None
 Login = False
 Nutzerich = None
+
+def verkauf():
+    global Nutzerich, benutzername, Login
+    response = requests.get(f"{base_api_url}/thread/verkaufbekommen/{benutzername}").json()
+    if response["Status"]:
+        l = response["information"]
+        for k in l:
+            produkt = k[0]
+            anzahl = k[1]
+            response = requests.get(f"{base_api_url}/handel/werterhalten/{produkt}").json()
+            preis = response["information"]
+            Nutzerich.produktverkauft(produkt, preis, anzahl)
+    
+
+
+
+
 
 
 def handel():
@@ -46,10 +64,38 @@ def handel():
         elif(auswahl == 2):
             response = requests.get(f"{base_api_url}/handel/nutzererhalten").json()
             print(response["information"])
-            partner = str(input("Von Welchem Haendler moechtest du dir die Produkte anschauen?"))
+            partner = str(input('Von Welchem Haendler moechtest du dir die Produkte anschauen?'))
+            partner = partner.replace(str("'"), str(""))
             response = requests.get(f"{base_api_url}/handel/untereinander/{partner}").json()
-            for k in response["information"]:
-                print(k)
+            if(response["Status"]):
+                for k in response["information"]:
+                    print("Produkt: ", k, "Anzahl: ", response["information"][k])
+                a = TerminalMenu(["Kaufen", "Zurueck"])
+                kaufwahl = a.show()
+                if kaufwahl == 0:
+                    wahl = str(input('Welches der Objekte möchtest du kaufen?'))
+                    wahl = wahl.replace(str("'"), str(""))
+                    anzahl = int(input('Wie viele der angebotenen Objekte willst du kaufen?'))
+
+                    response = requests.get(f"{base_api_url}/handel/werterhalten/{wahl}").json()
+                    preis = response["information"]
+                    if Nutzerich.Geldsehen() - preis*anzahl >= 0:
+                        response = requests.get(f"{base_api_url}/handel/kaufueberpruefen/{partner}/{wahl}/{anzahl}").json()
+                        if response["Status"]:
+                            response = requests.get(f"{base_api_url}/handel/kaufvonnutzerabschließen/{partner}/{wahl}/{anzahl}").json()
+                            vollstaendigerpreis = preis * anzahl
+                            Nutzerich.produktgekauft(vollstaendigerpreis, wahl, anzahl)
+                            print(response["information"])
+                            print("Neues Guthaben: ", Nutzerich.Geldsehen(), "RD")
+                        else:
+                            print(response["information"])
+                    else:
+                        print("Dein Geld reicht leider nicht aus!")
+                else:
+                    break
+            else:
+                print(response["information"])
+            
 
 
         elif(auswahl == 3):
@@ -79,11 +125,13 @@ def handel():
                                 break 
                     if not kaufabschließen:
                         print("Produkt nicht gefunden")   
+
+        verkauf()                
             
 
         
     start()
-        ##
+        
 
 def start():
     global Login, benutzername, Nutzerich
@@ -95,11 +143,11 @@ def start():
         k = False
         while not k:
             benutzername = str(input("Bitte gebe einen Benutzername ein: \n"))
-            benutzername = benutzername.replace("'", "")
+            benutzername = benutzername.replace(str("'"), str(""))
             passwort = str(input("Bitte gebe ein Passwort ein: \n"))
-            passwort = passwort.replace("'", "")
+            passwort = passwort.replace(str("'"), str(""))
             passwortwiederholen = str(input("Bitte Passwort wiederholen: \n"))
-            passwortwiederholen = passwortwiederholen.replace("'", "")
+            passwortwiederholen = passwortwiederholen.replace(str("'"), str(""))
             
             if (passwortwiederholen == passwort):
                 response = requests.get(f"{base_api_url}/registrieren/{benutzername}/{passwort}").json()
@@ -135,7 +183,6 @@ def start():
 
                 if(b == "N"):
                     break
-
     else:
         exit()
      

@@ -10,7 +10,7 @@ namespace ProjectGamma {
     class NutzerInterface{
         public:
             
-            virtual void verkauft(string Produkt, double Preis, int anzahl)=0;
+            virtual bool verkauft(string Produkt, double Preis, int anzahl)=0;
             virtual bool gekauft(double Preis, string Produkt, int anzahl)=0;
             virtual double getGuthaben() const =0;
             virtual string getName() const = 0;
