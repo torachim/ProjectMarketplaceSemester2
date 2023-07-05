@@ -8,8 +8,7 @@
 using namespace std; 
 namespace ProjectGamma{
 
-
-        Nutzer::Nutzer(const std::string& Name)
+        Nutzer::Nutzer(const std::string& Name)             //gibt Name des Nutzer zurück
         {
          myName = Name;
         }
@@ -18,11 +17,11 @@ namespace ProjectGamma{
         bool Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
             string name = Produkt;
-            for(auto it = Anzahl.begin(); it != Anzahl.end();){
-                string m = it -> first;
-                if(m == name){
-                    if(Anzahl.at(m) - anzahl == 0){
-                        for(auto ite = myObjects.begin(); ite != myObjects.end();){
+            for(auto it = Anzahl.begin(); it != Anzahl.end();){                 //Entfernt die angebene Anzahl des Produktes, falls Produkt mehrfach vorhanden
+                string m = it -> first;                                         
+                if(m == name){                                                  // wenn Eingabe ist gespeichert 
+                    if(Anzahl.at(m) - anzahl == 0){                              //Wenn alle Vorräte verkauft
+                        for(auto ite = myObjects.begin(); ite != myObjects.end();){ //durchläuft meine Objekte
                             if(ite -> o.getProdukt() == name){
                                 myObjects.erase(ite);
                                 Guthaben = Guthaben + (Preis * anzahl);
@@ -30,7 +29,7 @@ namespace ProjectGamma{
                                 return true;  
                             }
                             else{
-                                ++it;
+                                ++it;                                              //itertor erhöhene
                             }
                         }
                      
@@ -50,17 +49,25 @@ namespace ProjectGamma{
  
         }
             
-
-        bool Nutzer::gekauft(double Preis, string Produkt, int anzahl)
+        /**
+         * @brief Funktion wird in der Handelfunktion aufgerufen. Diese Funktion fügt das Produkt zu den Objekten des Käufers hinz, zudem wird das Guthaben des käufers entsprechend angepasst.
+         * 
+         * @param Preis 
+         * @param Produkt 
+         * @param anzahl 
+         * @return true 
+         * @return false 
+         */
+        bool Nutzer::gekauft(double Preis, string Produkt, int anzahl)          //Anpass Funktionn für den Käufer
         {
-            Guthaben = Guthaben - (Preis);
+            Guthaben = Guthaben - (Preis);                                      //Anpassung des Kontostandes
             string name = Produkt;
             string neuerverkäufer = getName();
-            Objekt no = Objekt (Produkt, Preis, neuerverkäufer);
+            Objekt no = Objekt (Produkt, Preis, neuerverkäufer);                //Anpassung des Verkäufers
             om.o = no;
             for(auto it = myObjects.begin(); it != myObjects.end();){
                 if(it -> o.getProdukt() == name){
-                    Anzahl.at(name) = Anzahl.at(name) + anzahl;
+                    Anzahl.at(name) = Anzahl.at(name) + anzahl;                //Anzahl des Produktes wird gespeichert
                     return true;
 
                 }
@@ -69,18 +76,29 @@ namespace ProjectGamma{
                 }  
 
                 }
-            myObjects.push_front(om);
-            Anzahl.insert(pair<string,int>(name, anzahl));
+            myObjects.push_front(om);                                           //speichern in map für meine Objekte
+            Anzahl.insert(pair<string,int>(name, anzahl));                       
             return true;
         }
         
 
-        double Nutzer::getGuthaben() const
+        /**
+         * @brief Funktion gibt den Guthaben eines Nutzers zurück.
+         * 
+         * @return double 
+         */
+        double Nutzer::getGuthaben() const  //gibt Guthaben des Nutzers zurück
         {
             return Guthaben;
         }
 
-        string Nutzer::getName() const
+
+        /**
+         * @brief Funktion gibt den Namen eines Nutzers zurück.
+         * 
+         * @return string 
+         */
+        string Nutzer::getName() const   //gibt Namen des Nutzers zurück
         {
             return myName;
         }
@@ -145,4 +163,4 @@ namespace ProjectGamma{
         
 
 
-}
+                                        

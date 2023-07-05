@@ -7,48 +7,79 @@ using namespace std;
 
 namespace ProjectGamma{
 
-    Objekt::Objekt(const std::string& produktName, double produktPreis,string produktSeller)
+    Objekt::Objekt(const std::string& produktName, double produktPreis,string produktSeller) //Konstruktor Objekt, welches ein Namen, den Preis und den Verkäufer speichert
         {
             Produkt = produktName;
             Preis = produktPreis;
             Seller = produktSeller;
         }
 
-    std::string Objekt::getProdukt()const
+    /**
+     * @brief Funktion gibt den Namen eines Produktes zurück
+     * 
+     * @return std::string 
+     */
+    std::string Objekt::getProdukt()const //Funktion gibt Name des Produktes zurück
         {
             return Produkt;
         }
 
-    double Objekt::getPreis()const 
+
+    /**
+     * @brief Funktion gibt den Preis eines Produktes zurück.
+     * 
+     * @return double 
+     */
+    double Objekt::getPreis()const  //Gibt den Preis des Produktes zurück
         {
             return Preis;
         }
 
-    string Objekt::getSeller() 
+
+    /**
+     * @brief Funktion gibt den Verkäufer eines Produktes zurück.
+     * 
+     * @return string 
+     */
+    string Objekt::getSeller() //Gibt den Verkäufer des Produktes zurück
         {
             return Seller;
         }
 
-    void Objekt::changeSeller(string Nutzer)
+    /**
+     * @brief Funktion passt den Verkäufer eines Produktes nach einem.
+     * 
+     * @param Nutzer 
+     */
+    void Objekt::changeSeller(string Nutzer) //Nutzung zu Anpassung des Verkäufers nach einem Kauf
         {
-            Seller = Nutzer;
+            Seller = Nutzer; //Setzt Verkäufer des Produktes auf den Käufer
         }
     
 
+    /**
+     * @brief gibt die aktuell berechnete Tendenez des Handelswert zurück
+     * 
+     * @return double 
+     */
     double Objekt::getTendenz()
         {
-            return Tendenz;
+            return Tendenz; //gibt Tendenzen des Handelswertes zurück (0.3 * ((rand() % 10) - 1 ) )
         }
     
+    /**
+     * @brief passt den Preis eines Produktes an
+     * 
+     */
     void Objekt::Preisanpassung()
         {
-            int Startpreis = getPreis();
-            int min = 1;
+            int Startpreis = getPreis(); //entnimmt den momentanen Preis des Produktes
+            int min = 1; 
             int max = 10;
-            double dt = 0.002; 
+            double dt = 0.002; //Zeit
             double Tend = getTendenz();
             int Y = 2*(rand() % max) - 1;
-            Preis = Startpreis * (1.0 + Tend*dt + 0.8*sqrt(dt)*Y);
+            Preis = Startpreis * (1.0 + Tend*dt + 0.8*sqrt(dt)*Y); //berechnet neuen Preis
         }
     
 }

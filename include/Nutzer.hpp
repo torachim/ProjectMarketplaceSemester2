@@ -20,11 +20,11 @@ namespace ProjectGamma{
             };
             objektenutzer om;
 
-            string myName; // eigentlich erstellen bei Nutzer erstellen Funktion
-            double Guthaben = 100.0; // wo anfangs Betrag festlegen
-            list<objektenutzer> myObjects;
-            map<string, int> Anzahl;
-            map<string, int> VerkaufsAnzahl;
+            string myName; // gibt Namen zurück
+            double Guthaben = 100.0; // anfangsbetrag festlegen
+            list<objektenutzer> myObjects; //liste mit den Objekten eines Nutzers
+            map<string, int> Anzahl;     //speichert Anzahl der produkte
+            map<string, int> VerkaufsAnzahl; //speichert Produkte zum Verkauf
 
         public:
 
