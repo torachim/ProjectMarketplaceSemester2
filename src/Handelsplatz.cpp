@@ -9,11 +9,14 @@ using namespace std;
 
 namespace ProjectGamma{
 
-        Handelsplatz::Handelsplatz(){
+    Handelsplatz::Handelsplatz(){
 
         }
-
-        void Handelsplatz::login()
+    /**
+     * @brief Diese Funktion ermöglicht das erstellen eines eigenes Kontos, durch Eingabe von einem username und eines Passwortes.
+     * 
+     */
+    void Handelsplatz::login()
         {
             string Benutzername;
             string Passwort;
@@ -46,7 +49,11 @@ namespace ProjectGamma{
                 }
             }
         }
-
+     
+        /**
+         * @brief Funktion leitet entweder zur login funktion oder zur Anmeldung bei einem vorhanden Konto. Abgefragt wird der Bneutzername und das Passwort.
+         * 
+         */
         void Handelsplatz::einloggen()
         {
             int n;
@@ -89,7 +96,13 @@ namespace ProjectGamma{
             }
         }
         
-
+        /**
+         * @brief Funktion überprüft, ob bei erstellen eines Kontos der Benutzername bereits vergeben ist. Falls dies der Fall ist wird false zurückgegeben, sonst true.
+         * 
+         * @param Name 
+         * @return true 
+         * @return false 
+         */
         bool Handelsplatz::nameVergeben (string Name)
         {
            for (auto it = MarktNutzer.begin(); it != MarktNutzer.end();) // durchläuft map mit Nutzer auf dem Markt
@@ -104,7 +117,10 @@ namespace ProjectGamma{
             }
             return true;  // bei nicht vorhandensein des Namens wird true zurückgegeben
         }
-
+        /**
+         * @brief Funktion druckt alle Produkte auf dem Markt und den zugehörigen Preis.
+         * 
+         */
         void Handelsplatz::showMarket() 
         {
             cout << "Marktangebot:" << endl;
@@ -114,7 +130,11 @@ namespace ProjectGamma{
                 ++it;
             }
         }
-
+        
+        /**
+         * @brief druckt alle Njutzer auf dem Markt
+         * 
+         */
         void Handelsplatz::showUsers() 
         {
             cout << "Nutzer auf dem Marktplatz:" << endl;
@@ -126,7 +146,12 @@ namespace ProjectGamma{
             }
         }   
 
-
+        /**
+         * @brief erstellt ein Produkt. Dabei wird der Produktname und der zugehörige Preis angegeben. Diese Produkt gehört dem Markt.
+         * 
+         * @param Produkt 
+         * @param Preis 
+         */
         void Handelsplatz::addProdukt(string Produkt, double Preis) //erstellen eines Produktes
         {
             Objekt no = Objekt (Produkt, Preis, "Markt"); //Erstelleung eines Objektes für dieses Produkt
@@ -134,6 +159,13 @@ namespace ProjectGamma{
             Markt.push_front(mo); // wird zum Markt hinzugefügt
         }
 
+        /**
+         * @brief Funktion überprüft, ob der Benutzer der als Parameter übergebn wird, auf dem Markt existiert.
+         * 
+         * @param Benutzername 
+         * @return true 
+         * @return false 
+         */
         bool Handelsplatz::findeBenutzer(string Benutzername) //sucht Benutzer in der Map mit den Nutzern
         {
             for(const auto& [key, value]: Information){ // in Information gespeichert
@@ -145,6 +177,10 @@ namespace ProjectGamma{
  
         }
 
+        /**
+         * @brief Funktion durchläuft jedes Produkt auf dem Markt und ruft pro Produkt die eigentliche Preisanpassungsfunktion auf.
+         * 
+         */
         void Handelsplatz::Preisanpassung()
         {
             for(auto it = Markt.begin(); it != Markt.end();){ //Preise aller Produkte auf dem Markt werden angepasst
@@ -154,6 +190,12 @@ namespace ProjectGamma{
 
         }
 
+        /**
+         * @brief Funktion ermöglicht den Kauf von einem Produkt. Es werden alle Produkte gedruckt und man kann diese Kaufen. Durch aufrufen anderer Funktion können die Produkte und das Geld gehandelt werden. Bei einem erfolgreichen Kauf wird true wiedregegeben, sonst false.
+         * 
+         * @return true 
+         * @return false 
+         */
         bool Handelsplatz::Handel()
         {
           nutzerobjekt an = MarktNutzer.front();

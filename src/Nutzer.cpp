@@ -13,7 +13,13 @@ namespace ProjectGamma{
          myName = Name;
         }
 
-
+        /**
+         * @brief Funktion wird in der Handelfunktion aufgerufen. Diese Funktion sorgt dafür, dass das Produkt vom Käufer entfernt wird und das Geld übertragen wird.
+         * 
+         * @param Produkt 
+         * @param Preis 
+         * @param anzahl 
+         */
         void Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
             string name = Produkt;
@@ -40,10 +46,18 @@ namespace ProjectGamma{
                     ++it;
                 }
             }
-            Guthaben = Guthaben + (Preis * anzahl);                              // Anpassung Guthaben des Verkäufers
+            Guthaben = Guthaben + (Preis * anzahl);                              //Anpassung Guthaben des Verkäufers
         }
             
-
+        /**
+         * @brief Funktion wird in der Handelfunktion aufgerufen. Diese Funktion fügt das Produkt zu den Objekten des Käufers hinz, zudem wird das Guthaben des käufers entsprechend angepasst.
+         * 
+         * @param Preis 
+         * @param Produkt 
+         * @param anzahl 
+         * @return true 
+         * @return false 
+         */
         bool Nutzer::gekauft(double Preis, string Produkt, int anzahl)          //Anpass Funktionn für den Käufer
         {
             Guthaben = Guthaben - (Preis);                                      //Anpassung des Kontostandes
@@ -68,16 +82,31 @@ namespace ProjectGamma{
         }
         
 
+        /**
+         * @brief Funktion gibt den Guthaben eines Nutzers zurück.
+         * 
+         * @return double 
+         */
         double Nutzer::getGuthaben() const  //gibt Guthaben des Nutzers zurück
         {
             return Guthaben;
         }
 
+
+        /**
+         * @brief Funktion gibt den Namen eines Nutzers zurück.
+         * 
+         * @return string 
+         */
         string Nutzer::getName() const   //gibt Namen des Nutzers zurück
         {
             return myName;
         }
 
+        /**
+         * @brief Funktion druckt alle Produkte eines Nutzers und deren zugehörige Anzahl aus.
+         * 
+         */
         void Nutzer::druckeObjekte() const{  //druckt die eigenen Objekte aus
             for(auto it = myObjects.begin(); it != myObjects.end();){  //durchläuft alle Objekte
                 string name = it -> o.getProdukt();  //entnimmt Produkt Namen
@@ -95,6 +124,10 @@ namespace ProjectGamma{
             }
         }
 
+        /**
+         * @brief Funktion ermöglicht seine Produkte aauf demm Markt zu verkauf bereitszustellen.
+         * 
+         */
         void Nutzer::Objekteaussortieren(){ //bestimmt ob Produkt weiterverkauft wird oder nicht
             int n;
             cout << "Moechtest du Objekte aussortieren um diese zum verkauf bereitzustellen? Ja(1), Nein(2)" << endl; //abfrage, ob weiterverkauft wird oder nicht
