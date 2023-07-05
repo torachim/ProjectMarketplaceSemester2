@@ -55,10 +55,14 @@ async def register(benutzername : str, passwort : str):
             passwoerternutzer[benutzername] = passwort
             return {"information" : 'Account angelegt du kehrst zur Anmeldung zurueck', "Status":True}
         
+
+        
 @app.get("/handel/nutzererhalten")
 async def getnutzer():
         global aktuellenutzer
         return{"information":aktuellenutzer}
+
+
 
 @app.get("/handel/logout/{benutzername}")
 async def abmelden(benutzername : str):
@@ -67,11 +71,15 @@ async def abmelden(benutzername : str):
       return {"information" : 'Abmeldung erfolgreich. Bis zum nächsten mal!',
               "Status" : True}
 
+
+
 @app.get("/handel/marktkauf")
 async def marktzeigen():
       global angebote
       return {"information" : angebote,
               "Status" : True}
+
+
 
 @app.get("/handel/objektebereitstellen/{produkt}/{anzahl}/{benutzername}")
 async def Objektebereitstellen(produkt : str, anzahl : int, benutzername : str):
@@ -90,6 +98,8 @@ async def Objektebereitstellen(produkt : str, anzahl : int, benutzername : str):
       return{"information" : 'Objekt(e) zum Verkauf bereitgestellt. Das Geld wird nach dem Verkauf uebermmittelt',
              "Status" : True}
 
+
+
 @app.get("/handel/untereinander/{partner}")
 async def handeluntereinander(partner : str):
       global nutzerverkaufe,bereitgestellteObjekte
@@ -103,15 +113,23 @@ async def handeluntereinander(partner : str):
                 else:
                      return{"information" : "Diese Nutzer verkauft aktuell keine Ware",                          
                             "Status" : False}
+      return {"information" : "Nutzer nicht gefunden",
+              "Status" : False}
                 
 
                 
 @app.get("/handel/werterhalten/{wahl}")
 async def wertgeben(wahl : str):
       global angebote
-      preis = angebote[wahl]
-      return {"information" : preis,
-              "Status" : True}
+      if wahl in angebote:
+          preis = angebote[wahl]
+          return {"information" : preis,
+               "Status" : True}
+      else:
+           return {"information" : "Ware existiert nicht",
+                   "Status" : False}
+
+
 
 @app.get("/handel/kaufueberpruefen/{partner}/{wahl}/{anzahl}")
 async def kaufueberpruefen(partner : str, wahl : str, anzahl : int):
@@ -127,6 +145,8 @@ async def kaufueberpruefen(partner : str, wahl : str, anzahl : int):
       else:
            return {"information" : "Objekt konnte nicht gefunden werden",
                    "Status" : False}
+      
+
 
 @app.get("/handel/kaufvonnutzerabschließen/{partner}/{wahl}/{anzahl}")
 async def kaufvonnutzer(partner : str, wahl : str, anzahl : int):
@@ -154,6 +174,8 @@ async def kaufvonnutzer(partner : str, wahl : str, anzahl : int):
               "Status" : True}
 
 
+
+
 @app.get("/thread/verkaufbekommen/{benutzername}")
 async def verkauferhalten(benutzername : str):
       global verkaufteObjekte
@@ -163,6 +185,8 @@ async def verkauferhalten(benutzername : str):
                    "Status" : True}
       else:
            return {"Status" : False}
+      
+
 
 @app.get("/thread/verkaufabschließen/{benutzername}/{produkt}/{anzahl}")
 async def verkaufabsch(benutzername : str, produkt : str, anzahl : int):
@@ -170,6 +194,8 @@ async def verkaufabsch(benutzername : str, produkt : str, anzahl : int):
       li = verkaufteObjekte[benutzername]
       li.remove([produkt, anzahl])
       return {"Status" : True}
+
+
 
 @app.get("/thread/preisanpassung")
 async def preiseanpassen():
@@ -183,25 +209,9 @@ async def preiseanpassen():
            preisgerundet = round(preisneu, 2)
            angebote[a] = preisgerundet
       return {"Status" : True}
+
+
            
-
-
-
-          
-
-
-
-
-
-
-              
-                
-
-
-
-
-
-     
 
     
 if __name__ == '__main__':

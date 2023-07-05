@@ -80,21 +80,22 @@ def handel():
                     anzahl = int(input('Wie viele der angebotenen Objekte willst du kaufen?'))
 
                     response = requests.get(f"{base_api_url}/handel/werterhalten/{wahl}").json()
-                    preis = response["information"]
-                    if Nutzerich.Geldsehen() - preis*anzahl >= 0:
-                        response = requests.get(f"{base_api_url}/handel/kaufueberpruefen/{partner}/{wahl}/{anzahl}").json()
-                        if response["Status"]:
-                            response = requests.get(f"{base_api_url}/handel/kaufvonnutzerabschließen/{partner}/{wahl}/{anzahl}").json()
-                            vollstaendigerpreis = preis * anzahl
-                            Nutzerich.produktgekauft(vollstaendigerpreis, wahl, anzahl)
-                            print(response["information"])
-                            print("Neues Guthaben: ", Nutzerich.Geldsehen(), "RD")
+                    if response["Status"]:
+                        preis = response["information"]
+                        if Nutzerich.Geldsehen() - preis*anzahl >= 0:
+                            response = requests.get(f"{base_api_url}/handel/kaufueberpruefen/{partner}/{wahl}/{anzahl}").json()
+                            if response["Status"]:
+                                response = requests.get(f"{base_api_url}/handel/kaufvonnutzerabschließen/{partner}/{wahl}/{anzahl}").json()
+                                vollstaendigerpreis = preis * anzahl
+                                Nutzerich.produktgekauft(vollstaendigerpreis, wahl, anzahl)
+                                print(response["information"])
+                                print("Neues Guthaben: ", Nutzerich.Geldsehen(), "RD")
+                            else:
+                                print(response["information"])
                         else:
-                            print(response["information"])
+                            print("Dein Geld reicht leider nicht aus!")
                     else:
-                        print("Dein Geld reicht leider nicht aus!")
-                else:
-                    break
+                        print(response["information"])              
             else:
                 print(response["information"])
             
@@ -110,8 +111,10 @@ def handel():
             wahl = a.show()
             
             if(wahl == 0):
+                
                 kaufabschließen = False
                 while not kaufabschließen:
+                    p = 0
                     willkaufen = str(input("Welches der Objekte möchtest du kaufen?"))
                     for k in ergebnis:
                         if k == willkaufen:
@@ -124,9 +127,11 @@ def handel():
                                 break
                             else:
                                 print("Nicht genung Geld!")
+                                p = 1
                                 break 
-                    if not kaufabschließen:
-                        print("Produkt nicht gefunden")                  
+                    if not kaufabschließen and p == 0:
+                        print("Produkt nicht gefunden")
+                        p = 0                  
             
 
         
@@ -181,9 +186,11 @@ def start():
 
             else:
                 print(response["information"])
-                b = str(input("Erneut versuchen? (J/N)"))
+                print("Erneut versuchen?")
+                menu = TerminalMenu(["Ja", "Nein"])
+                p = menu.show()
 
-                if(b == "N"):
+                if(p == 1):
                     break
     else:
         exit()

@@ -14,64 +14,16 @@ namespace ProjectGamma{
          myName = Name;
         }
 
-        /*void Nutzer::kaufen(const std::string& Objekt) 
-        {   
-            string Produkt = Objekt.getProdukt();
-            bool a = available(Produkt);
-            if ( a == true)
-            {
-    
-                double Preis = Produkt.getPreis();
-                string Seller = Produkt.getSeller();
-
-                if(Guthaben>= Preis)
-                {
-                myList.add(Produkt);   // zu meiner Liste hinzufügen
-                pay(Preis, Seller);    // Bezahlen
-                Seller.verkauft();     // BezahlenSeller und entferen von der SellerListe
-                verkaufen(Produkt);    // Abfrage ob Produkt weiter verkauft werden soll
-                }
-                else{
-                    cout<< "Geld reicht nicht aus" << endl;
-                }
-            }
-            else
-            {
-                cout<< "Produkt wird nicht verkauft" << endl;
-            }
-        }*/
-
-        /*void Nutzer::verkaufen(string Produkt,bool ja)
-        {
-            bool Antwort;
-
-            //cout<< "Willst du" <<Produkt  << "weiterverkaufen? (1 für Ja oder 0 für Nein): "<<endl; // Bei Phyton erst nach Abfrage diese Funktion aufrufen
-            //cin>> Antwort;
-
-            if( Antwort== 0)
-            {
-                Markt.remove(Produkt);  // Produkt für Eigenbedarf wird vom Markt gelöscht
-            }
-            else
-            {
-            Produkt.changeSeller(myName); // Produkt wird vom Nutzer weiterverkauft
-            }
-        }*/
 
         bool Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
             string name = Produkt;
-            cout << "HAllo" <<endl;
             for(auto it = Anzahl.begin(); it != Anzahl.end();){
                 string m = it -> first;
                 if(m == name){
-                    cout << "J" << endl;
                     if(Anzahl.at(m) - anzahl == 0){
-                        cout << "T" << endl;
                         for(auto ite = myObjects.begin(); ite != myObjects.end();){
-                            cout << "P" << endl;
                             if(ite -> o.getProdukt() == name){
-                                cout << "Q" << endl;
                                 myObjects.erase(ite);
                                 Guthaben = Guthaben + (Preis * anzahl);
                                 Anzahl.erase(it); 
@@ -84,8 +36,6 @@ namespace ProjectGamma{
                      
                     }
                     else{
-                        cout << "Y" << endl;
-
                         int newvalue = Anzahl.at(it -> first) - anzahl;
                         Guthaben = Guthaben + (Preis * anzahl);
                         Anzahl[it -> first] = newvalue;
