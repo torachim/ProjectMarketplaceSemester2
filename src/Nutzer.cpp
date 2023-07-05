@@ -13,7 +13,15 @@ namespace ProjectGamma{
          myName = Name;
         }
 
-
+        /**
+         * @brief Funktion wird in der Handelsfunktion aufgerufen. Sie entfernt nac einem Kauf das Produkt vom Besitz des Käufers iund erhöht sein Guthaben entsprechend.
+         * 
+         * @param Produkt 
+         * @param Preis 
+         * @param anzahl 
+         * @return true 
+         * @return false 
+         */
         bool Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
             string name = Produkt;
@@ -103,6 +111,12 @@ namespace ProjectGamma{
             return myName;
         }
 
+        /**
+         * @brief Die Funktion druckt die einzelen Objekte einses Nutzer mit entsprechender Anzahl
+         * 
+         * @return true 
+         * @return false 
+         */
         bool Nutzer::druckeObjekte() const{
             if(myObjects.size() == 1){
                 myObjects.front().o.getProdukt();
@@ -124,6 +138,14 @@ namespace ProjectGamma{
             return true;
             }    
 
+        /**
+         * @brief Funktion ermöglicht Produkte im eigenen Besitz zum Verkauf freizustellen.
+         * 
+         * @param Produkt 
+         * @param anzahl 
+         * @return true 
+         * @return false 
+         */
         bool Nutzer::Objekteaussortieren(string Produkt, int anzahl){
             cout << myObjects.size() << endl;              
             cout << Anzahl.size() << endl;
@@ -150,16 +172,34 @@ namespace ProjectGamma{
             return false;          
         }
 
+        /**
+         * @brief Funktion gibt die Anzahl zu Verkauf stehende Ware eines Produktes wieder
+         * 
+         * @return map<string, int> 
+         */
         map<string, int> Nutzer::getVerkaufsAnzahl() const{
             return VerkaufsAnzahl;
         }
 
+        /**
+         * @brief Funktion fügt Produkt eines Nutzers zum Markt zu.
+         * 
+         * @param Produkt 
+         * @param anzahl 
+         * @return true 
+         * @return false 
+         */
         bool Nutzer::produktzumverkauf(string Produkt, int anzahl){
             VerkaufsAnzahl.insert(pair<string, int> (Produkt, anzahl));
             return true;
         }
+<<<<<<< HEAD
 }              
             
+=======
+                
+}   
+>>>>>>> e73c3570e6d9c26005a9bc85cb71869be0a5a299
         
 
 

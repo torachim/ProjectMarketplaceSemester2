@@ -66,7 +66,7 @@ async def register(benutzername : str, passwort : str):
         #Ansonsten word ein Account angelegt
         else:
             passwoerternutzer[benutzername] = passwort
-            return {"information" : 'Account angelegt du kehrst zur Anmeldung zurueck', "Status":True}
+            return {"information" : 'Account angelegt, du kehrst zur Anmeldung zurueck', "Status":True}
         
 
 #Gibt die aktuellen Nutzer auf dem Marktplatz zurueck        
@@ -119,7 +119,7 @@ async def Objektebereitstellen(produkt : str, anzahl : int, benutzername : str):
                   bereitgestellteObjekte[benutzername] = k
                 print(bereitgestellteObjekte)
 
-      return{"information" : 'Objekt(e) zum Verkauf bereitgestellt. Das Geld wird nach dem Verkauf uebermmittelt',
+      return{"information" : 'Objekt(e) zum Verkauf bereitgestellt. Das Geld wird nach dem Verkauf uebermittelt',
              "Status" : True}
 
 
