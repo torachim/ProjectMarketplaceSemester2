@@ -7,6 +7,7 @@ from handelsplatz import Objekt
 from pprint import pprint
 from simple_term_menu import TerminalMenu
 import requests
+from threading import Thread
 
 
 
@@ -20,19 +21,20 @@ Nutzerich = None
 
 def verkauf():
     global Nutzerich, benutzername, Login
-    response = requests.get(f"{base_api_url}/thread/verkaufbekommen/{benutzername}").json()
-    if response["Status"]:
-        l = response["information"]
-        for k in l:
-            produkt = k[0]
-            anzahl = k[1]
-            response = requests.get(f"{base_api_url}/handel/werterhalten/{produkt}").json()
-            preis = response["information"]
-            Nutzerich.produktverkauft(produkt, preis, anzahl)
+    while Login:
+        responseig = requests.get(f"{base_api_url}/thread/verkaufbekommen/{benutzername}").json()
+        if responseig["Status"]:
+            l = responseig["information"]
+            for k in l:
+                produkt = k[0]
+                anzahl = k[1]
+                responseig = requests.get(f"{base_api_url}/handel/werterhalten/{produkt}").json()
+                preis = responseig["information"]
+                Nutzerich.produktverkauft(produkt, preis, anzahl)
+                responseig = requests.get(f"{base_api_url}/thread/verkaufabschließen/{benutzername}/{produkt}/{anzahl}").json()
+                responseig = requests.get(f"{base_api_url}/thread/preisanpassung").json()
+        time.sleep(5.0)
     
-
-
-
 
 
 
@@ -124,9 +126,7 @@ def handel():
                                 print("Nicht genung Geld!")
                                 break 
                     if not kaufabschließen:
-                        print("Produkt nicht gefunden")   
-
-        verkauf()                
+                        print("Produkt nicht gefunden")                  
             
 
         
@@ -175,6 +175,8 @@ def start():
                 print(response["information"])
                 k = True
                 Login = True
+                thread1 = Thread(target=verkauf)
+                thread1.start()
                 handel()
 
             else:

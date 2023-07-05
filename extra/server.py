@@ -13,10 +13,11 @@ except ImportError as e:
 
 from handelsplatz import Handelsplatz, Nutzer, Objekt
 import os
-import random
+from random import *
 import uvicorn
 from fastapi import FastAPI
 import requests
+import math
 
 app = FastAPI()
 
@@ -162,6 +163,31 @@ async def verkauferhalten(benutzername : str):
                    "Status" : True}
       else:
            return {"Status" : False}
+
+@app.get("/thread/verkaufabschließen/{benutzername}/{produkt}/{anzahl}")
+async def verkaufabsch(benutzername : str, produkt : str, anzahl : int):
+      global verkaufteObjekte
+      li = verkaufteObjekte[benutzername]
+      li.remove([produkt, anzahl])
+      return {"Status" : True}
+
+@app.get("/thread/preisanpassung")
+async def preiseanpassen():
+      global angebote
+      for a in angebote:
+           preis = angebote[a]
+           Y = 2*(randint(0,9)) - 1
+           Tendenz = 0.3 * (randint(0,9)-1)
+           dt =  0.02
+           preisneu = preis * (1.0 + Tendenz*dt + 0.8*math.sqrt(dt)*Y)
+           preisgerundet = round(preisneu, 2)
+           angebote[a] = preisgerundet
+      return {"Status" : True}
+           
+
+
+
+          
 
 
 
