@@ -193,13 +193,8 @@ namespace ProjectGamma{
             VerkaufsAnzahl.insert(pair<string, int> (Produkt, anzahl));
             return true;
         }
-<<<<<<< HEAD
 }              
             
-=======
-                
-}   
->>>>>>> e73c3570e6d9c26005a9bc85cb71869be0a5a299
         
 
 
