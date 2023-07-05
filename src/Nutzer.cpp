@@ -158,7 +158,7 @@ namespace ProjectGamma{
             VerkaufsAnzahl.insert(pair<string, int> (Produkt, anzahl));
             return true;
         }
-                
+}              
             
         
 
