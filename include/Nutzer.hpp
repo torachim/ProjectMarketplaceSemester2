@@ -29,11 +29,13 @@ namespace ProjectGamma{
         public:
 
             Nutzer(const std::string& Name);
-            void verkauft(string Produkt, double Preis, int anzahl);  //verkaufen eines Objektes
-            bool gekauft(double Preis, string Produkt, int anzahl);   //kaufen eines Objektes
-            double getGuthaben() const;                              //wiedergabe des Guthaben des Nutzers
-            string getName() const;                                 //wiedergabe des Namen des Nutzers                               
-            void druckeObjekte() const;                             // druckt Objekte aus
-            void Objekteaussortieren();                             // zum weiter Verkauffen von Prdoukten oder Nutzung für Eigenbedarf
+            bool verkauft(string Produkt, double Preis, int anzahl);
+            bool gekauft(double Preis, string Produkt, int anzahl);
+            double getGuthaben() const;
+            string getName() const;
+            bool druckeObjekte() const;
+            bool Objekteaussortieren(string Produkt, int anzahl);
+            map<string, int> getVerkaufsAnzahl() const;
+            bool produktzumverkauf(string produkt, int anzahl);
     };
 };

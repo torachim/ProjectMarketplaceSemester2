@@ -13,14 +13,8 @@ namespace ProjectGamma{
          myName = Name;
         }
 
-        /**
-         * @brief Funktion wird in der Handelfunktion aufgerufen. Diese Funktion sorgt dafür, dass das Produkt vom Käufer entfernt wird und das Geld übertragen wird.
-         * 
-         * @param Produkt 
-         * @param Preis 
-         * @param anzahl 
-         */
-        void Nutzer::verkauft(string Produkt, double Preis, int anzahl)
+
+        bool Nutzer::verkauft(string Produkt, double Preis, int anzahl)
         {
             string name = Produkt;
             for(auto it = Anzahl.begin(); it != Anzahl.end();){                 //Entfernt die angebene Anzahl des Produktes, falls Produkt mehrfach vorhanden
@@ -29,24 +23,30 @@ namespace ProjectGamma{
                     if(Anzahl.at(m) - anzahl == 0){                              //Wenn alle Vorräte verkauft
                         for(auto ite = myObjects.begin(); ite != myObjects.end();){ //durchläuft meine Objekte
                             if(ite -> o.getProdukt() == name){
-                                myObjects.erase(ite);                               //entfernt item von meinen Produkten
+                                myObjects.erase(ite);
+                                Guthaben = Guthaben + (Preis * anzahl);
+                                Anzahl.erase(it); 
+                                return true;  
                             }
                             else{
                                 ++it;                                              //itertor erhöhene
                             }
                         }
-                        Anzahl.erase(it);                        
+                     
                     }
                     else{
-                        int newvalue = Anzahl.at(it -> first) - anzahl;          //vorhanden Anzahl des Produktes anpassen
+                        int newvalue = Anzahl.at(it -> first) - anzahl;
+                        Guthaben = Guthaben + (Preis * anzahl);
                         Anzahl[it -> first] = newvalue;
+                        return true;
                     }
                 }
                 else{
                     ++it;
                 }
             }
-            Guthaben = Guthaben + (Preis * anzahl);                              //Anpassung Guthaben des Verkäufers
+            return true;
+ 
         }
             
         /**
@@ -103,77 +103,64 @@ namespace ProjectGamma{
             return myName;
         }
 
-        /**
-         * @brief Funktion druckt alle Produkte eines Nutzers und deren zugehörige Anzahl aus.
-         * 
-         */
-        void Nutzer::druckeObjekte() const{  //druckt die eigenen Objekte aus
-            for(auto it = myObjects.begin(); it != myObjects.end();){  //durchläuft alle Objekte
-                string name = it -> o.getProdukt();  //entnimmt Produkt Namen
-                for(auto ite = Anzahl.begin(); ite != Anzahl.end();){ //durchläuft Anzahl 
-                    string k = ite -> first;
-                    if(k == name){     //bestimmt passende Anzahl zum Produkt
+        bool Nutzer::druckeObjekte() const{
+            if(myObjects.size() == 1){
+                myObjects.front().o.getProdukt();
+                int wert = Anzahl.at(myObjects.front().o.getProdukt());
+                cout << "Produkt: " << myObjects.front().o.getProdukt() << "Anzahl: " << wert << endl;
+            }
+            else{
+                //for(auto it = myObjects.begin(); it != myObjects.end();){
+                  //  string name = it -> o.getProdukt();
+                    for(auto ite = Anzahl.begin(); ite != Anzahl.end();){
+                        string k = ite -> first;
+                        //if(k == name){
                         int wert = Anzahl.at(k);
-                        cout << "Produkt: " << name << "Anzahl: " << wert << endl;  //gibt produkt und passende Anzahl zurück                   
-                    }
-                    else{
+                        cout << "Produkt: " << k << " Anzahl: " << wert << endl;
+                    
                         ++ite;
                     }
                 }
-                ++it;
-            }
-        }
+            return true;
+            }    
 
-        /**
-         * @brief Funktion ermöglicht seine Produkte aauf demm Markt zu verkauf bereitszustellen.
-         * 
-         */
-        void Nutzer::Objekteaussortieren(){ //bestimmt ob Produkt weiterverkauft wird oder nicht
-            int n;
-            cout << "Moechtest du Objekte aussortieren um diese zum verkauf bereitzustellen? Ja(1), Nein(2)" << endl; //abfrage, ob weiterverkauft wird oder nicht
-            cin >> n;
-            if(n > 2 || 1 > n){
-                throw logic_error("Falsche Eingabe bitte erneut versuchen"); //Ausnahmebehandlung bei falscher Eingabe
-            }
-            else{
-                if(n == 1){   //falls weiterverkauft werden soll      
-                    bool r = false;
-                    while(r == false){
-                        druckeObjekte(); //ausgabe der eigenen Produkten
-                        string Verkauf;
-                        cout << "Welches der Objekte möchtest du verkaufen?" << endl; //auswahl des Produktes
-                        cin >> Verkauf;
-                        for(auto it = Anzahl.begin(); it != Anzahl.end();){ 
-                            string objname = it -> first;
-                            if(objname == Verkauf){  // aus map der iegen Produkte entfrenen
-                                cout << "Wie viele dieser Objekte möchtest du zum Verkauf bereitstellen?" << endl; //anzahl bestimmen
-                                int k;
-                                cin >> k;
-                                int q = Anzahl.at(objname);
-                                if(k <= q|| k > 0){ //für die Anzahl
-                                    //VerkaufsObjekte.push_front(oj);
-                                    VerkaufsAnzahl.insert(pair <string, int> (Verkauf, k)); //Produkt wird zum verkauf bereitgestellt
-                                    cout << "Moechtest du noch mehr Objekte zum Verkauf bereit stellen? Ja(1), Nein(2)" << endl; 
-                                    int p;
-                                    cin >> p;
-                                    if(p == 2){ //falls nicht weitere Produkte verkauft werden 
-                                        r = true;
-                                    }    
-                                }
-                                else{
-                                    cout << "Unpassende Anzahl an Objekten ausgewählt" << endl; // falls zu hohe odrer niedrige Anzahl gewählt
-                                }
-                            }
-                            else{
-                                ++it;
-                            }
-                        }
-                        cout << "Objekt konnte nicht gefunden werden" << endl; //falls man diese Produkt nicht besitzt
+        bool Nutzer::Objekteaussortieren(string Produkt, int anzahl){
+            cout << myObjects.size() << endl;              
+            cout << Anzahl.size() << endl;
+            for(auto it = Anzahl.begin(); it != Anzahl.end();){
+                string objname = it -> first;
+                if(objname == Produkt){
+
+                    int q = Anzahl.at(objname);
+                    if(anzahl <= q && anzahl > 0){
+
+                        VerkaufsAnzahl.insert(pair <string, int> (Produkt, anzahl));
+                        return true; 
+                    }
+                    else{
+                        cout << "Unpassende Anzahl an Objekten ausgewählt" << endl;
+                        return false;
                     }
                 }
-               } 
+                else{
+                    ++it;
+                }
             }
-}
+            cout << "Objekt konnte nicht gefunden weerden" << endl;
+            return false;          
+        }
+
+        map<string, int> Nutzer::getVerkaufsAnzahl() const{
+            return VerkaufsAnzahl;
+        }
+
+        bool Nutzer::produktzumverkauf(string Produkt, int anzahl){
+            VerkaufsAnzahl.insert(pair<string, int> (Produkt, anzahl));
+            return true;
+        }
+                
+            
+        
 
 
                                         
