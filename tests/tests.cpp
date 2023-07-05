@@ -2,27 +2,28 @@
 #include <iostream>
 #include "../include/Handelsplatz.hpp"
 #include "../include/Nutzer.hpp"
-#include "../include/Objekt.hpp"
+#include "../src/Nutzer.cpp"
+#include "../src/Handelsplatz.cpp"
 
+using namespace std;
 using namespace ProjectGamma;
 
-TEST(handelsplatz, isHit)
+string anna = "anna";
+string apfel = "apfel";
+
+TEST(handelsplatz, findeBenutzer)
 {
       Handelsplatz h;
-      h.login(Nutzer1, 2023);  //Nach anpassen der Funktion für Phyton
-      EXPECT_EQ(h.login(Nutzer1, 2023));
-      EXPECT_EQ();
+      EXPECT_EQ( h.nameVergeben(anna),false);
+      EXPECT_EQ(h.findeBenutzer(anna), false);
+
 }
 
-TEST(boardfkt, canSetShip)
+TEST(nutzer, produktBearbeiten)
 {
-      board m;
-      EXPECT_EQ(m.canSetShip(4, 6, 1), true);
-      EXPECT_EQ(m.canSetShip(9, 6, 1), false); // Ausnahmen beachten
-}
-
-TEST(boardfkt, winner)
-{
-      board m;
-      EXPECT_EQ(m.winner(), true);
+      Nutzer k =Nutzer(anna);
+      EXPECT_EQ(k.verkauft(apfel, 12.00, 3),false);
+      EXPECT_EQ(k.gekauft(12.00, apfel, 3),false);
+      EXPECT_EQ(k.Objekteaussortieren(apfel, 2),false);
+      EXPECT_EQ(k.produktzumverkauf(apfel, 2),false);
 }
